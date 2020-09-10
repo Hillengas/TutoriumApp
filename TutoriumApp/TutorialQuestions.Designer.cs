@@ -32,6 +32,8 @@
             this.newQuestion_richTextBox = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.DownloadButton = new System.Windows.Forms.Button();
+            this.Show = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button_upload
@@ -71,11 +73,33 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // DownloadButton
+            // 
+            this.DownloadButton.Location = new System.Drawing.Point(356, 321);
+            this.DownloadButton.Name = "DownloadButton";
+            this.DownloadButton.Size = new System.Drawing.Size(75, 23);
+            this.DownloadButton.TabIndex = 4;
+            this.DownloadButton.Text = "Download";
+            this.DownloadButton.UseVisualStyleBackColor = true;
+            this.DownloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
+            // 
+            // Show
+            // 
+            this.Show.Location = new System.Drawing.Point(643, 252);
+            this.Show.Name = "Show";
+            this.Show.Size = new System.Drawing.Size(75, 23);
+            this.Show.TabIndex = 5;
+            this.Show.Text = "anzeige";
+            this.Show.UseVisualStyleBackColor = true;
+            this.Show.Click += new System.EventHandler(this.Show_Click);
+            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(855, 488);
+            this.Controls.Add(this.Show);
+            this.Controls.Add(this.DownloadButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.newQuestion_richTextBox);
@@ -93,6 +117,8 @@
         private System.Windows.Forms.RichTextBox newQuestion_richTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button DownloadButton;
+        private System.Windows.Forms.Button Show;
     }
 }
 

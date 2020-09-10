@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Download\DownloadFunctions.cs" />
+    <Compile Include="Show\ShowFunctions.cs" />
     <Compile Include="TutorialQuestions.cs">
       <SubType>Form</SubType>
     </Compile>

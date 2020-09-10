@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TutoriumApp.Download;
+using TutoriumApp.Show;
 using TutoriumApp.Upload;
 
 namespace TutoriumApp
@@ -31,6 +33,16 @@ namespace TutoriumApp
         private void cancelButton_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void DownloadButton_Click(object sender, EventArgs e)
+        {
+            DownloadFunctions.DownloadQuestion();
+        }
+
+        private void Show_Click(object sender, EventArgs e)
+        {
+            ShowFunctions.ShowAll();
         }
     }
 }
