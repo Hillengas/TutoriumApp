@@ -18,7 +18,7 @@ namespace TutoriumApp.Show
             request.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
 
             // This example assumes the FTP site uses anonymous logon.
-            request.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
+            request.Credentials = new NetworkCredential("tutorium", "kcN9lsyxqcKHRMeJ");
 
             FtpWebResponse response = (FtpWebResponse)request.GetResponse();
 
