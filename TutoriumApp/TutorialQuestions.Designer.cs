@@ -34,6 +34,9 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.DownloadButton = new System.Windows.Forms.Button();
             this.Show = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.DeleteButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button_upload
@@ -93,11 +96,31 @@
             this.Show.UseVisualStyleBackColor = true;
             this.Show.Click += new System.EventHandler(this.Show_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(102, 252);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(181, 119);
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
+            // 
+            // DeleteButton
+            // 
+            this.DeleteButton.Location = new System.Drawing.Point(523, 357);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(75, 23);
+            this.DeleteButton.TabIndex = 7;
+            this.DeleteButton.Text = "Löschen";
+            this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+            // 
             // main_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(855, 488);
+            this.Controls.Add(this.DeleteButton);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.Show);
             this.Controls.Add(this.DownloadButton);
             this.Controls.Add(this.cancelButton);
@@ -106,6 +129,7 @@
             this.Controls.Add(this.button_upload);
             this.Name = "main_form";
             this.Text = "Tutorium_Fragen";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -119,6 +143,8 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button DownloadButton;
         private System.Windows.Forms.Button Show;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button DeleteButton;
     }
 }
 
