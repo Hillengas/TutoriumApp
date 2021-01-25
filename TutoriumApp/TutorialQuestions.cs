@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TutoriumApp.Delete;
 using TutoriumApp.Download;
 using TutoriumApp.Show;
 using TutoriumApp.Upload;
@@ -43,6 +44,11 @@ namespace TutoriumApp
         private void Show_Click(object sender, EventArgs e)
         {
             ShowFunctions.ShowAll();
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            DeleteFunctions.DeleteFile("macOS light.jpeg");
         }
     }
 }

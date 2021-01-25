@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TutoriumApp.Delete;
 
 namespace TutoriumApp.Upload
 {
@@ -14,35 +15,96 @@ namespace TutoriumApp.Upload
         public static void UploadQuestion(Question question)
         {
             // Get the object used to communicate with the server.
-            FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://www.tutorium.bplaced.net/index");
+            const string filename = "answers.txt";
 
-            request.UseBinary = true;
-            request.UsePassive = true;
-            request.KeepAlive = true;
+            // delete answers file
+            DeleteFunctions.DeleteFile(filename);
+            UploadPicture();
+            UploadText(question);
+            HtmlUpload();
 
-            request.Method = WebRequestMethods.Ftp.UploadFile;
 
-            // This example assumes the FTP site uses anonymous logon.
-            request.Credentials = new NetworkCredential("tutorium", "kcN9lsyxqcKHRMeJ"); 
+            // 4BWhRhAEJyKTcNbv <- PAsswort tutorium_23
+            // kcN9lsyxqcKHRMeJ <- Tutorium Passwort
+        }
 
-            // Copy the contents of the file to the request stream.
-            byte[] fileContents;
+        /// <summary>
+        /// Upload the HTML information for
+        /// "http://www.tutorium.bplaced.net/index.php"
+        /// </summary>
+        private static void HtmlUpload()
+        {
+            var requestHTML = (FtpWebRequest) WebRequest.Create("ftp://www.tutorium.bplaced.net/index.php");
 
-            using (StreamReader sourceStream = new StreamReader("C:/Users/Alex/Desktop/wallpaper/bigsur.jpeg"))
+            requestHTML.UseBinary = true;
+            requestHTML.UsePassive = true;
+            requestHTML.KeepAlive = true;
+
+            requestHTML.Method = WebRequestMethods.Ftp.UploadFile;
+
+            requestHTML.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
+
+            byte[] fileContentsHtml = File.ReadAllBytes("C:/Users/Alex/Desktop/wallpaper/PHP_Request.php");
+
+            requestHTML.ContentLength = fileContentsHtml.Length;
+
+            using (Stream requestStream = requestHTML.GetRequestStream())
             {
-                fileContents = Encoding.UTF8.GetBytes(sourceStream.ReadToEnd());
+                requestStream.Write(fileContentsHtml, 0, fileContentsHtml.Length);
             }
+        }
 
-            request.ContentLength = fileContents.Length;
+        /// <summary>
+        /// Upload the text information for
+        /// "http://www.tutorium.bplaced.net/index.txt"
+        /// </summary>
+        /// <param name="question"></param>
+        private static void UploadText(Question question)
+        {
+            var requestText = (FtpWebRequest) WebRequest.Create("ftp://www.tutorium.bplaced.net/index.txt");
 
-            using (Stream requestStream = request.GetRequestStream())
+            requestText.UseBinary = true;
+            requestText.UsePassive = true;
+            requestText.KeepAlive = true;
+
+            requestText.Method = WebRequestMethods.Ftp.UploadFile;
+
+            requestText.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
+
+            byte[] fileContentsText = Encoding.ASCII.GetBytes(question.Text);
+
+            requestText.ContentLength = fileContentsText.Length;
+
+            // upload
+            using (Stream requestStream = requestText.GetRequestStream())
             {
-                requestStream.Write(fileContents, 0, fileContents.Length);
+                requestStream.Write(fileContentsText, 0, fileContentsText.Length);
             }
+        }
 
-            using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+        /// <summary>
+        /// Upload the picture information for
+        /// "http://www.tutorium.bplaced.net/index.jpg"
+        /// </summary>
+        private static void UploadPicture()
+        {
+            var requestPicture = (FtpWebRequest) WebRequest.Create("ftp://www.tutorium.bplaced.net/index.jpg");
+
+            requestPicture.UseBinary = true;
+            requestPicture.UsePassive = true;
+            requestPicture.KeepAlive = true;
+
+            requestPicture.Method = WebRequestMethods.Ftp.UploadFile;
+
+            requestPicture.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
+
+            byte[] fileContentsPicture = File.ReadAllBytes("C:/Users/Alex/Desktop/wallpaper/macOS light.jpeg");
+
+            requestPicture.ContentLength = fileContentsPicture.Length;
+
+            using (Stream requestStream = requestPicture.GetRequestStream())
             {
-                MessageBox.Show($"Upload File Complete, status {response.StatusDescription}");
+                requestStream.Write(fileContentsPicture, 0, fileContentsPicture.Length);
             }
         }
     }

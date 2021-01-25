@@ -1,0 +1,11 @@
+DeleteFunctions.cs - 161625012021: No "answers.txt" was found online to be deleted. System.Net.WebException: Der Remoteserver hat einen Fehler zurückgegeben: (550) Datei nicht verfügbar (z.B. nicht gefunden oder kein Zugriff).
+   bei System.Net.FtpWebRequest.SyncRequestCallback(Object obj)
+   bei System.Net.FtpWebRequest.RequestCallback(Object obj)
+   bei System.Net.CommandStream.Dispose(Boolean disposing)
+   bei System.IO.Stream.Close()
+   bei System.IO.Stream.Dispose()
+   bei System.Net.ConnectionPool.Destroy(PooledStream pooledStream)
+   bei System.Net.ConnectionPool.PutConnection(PooledStream pooledStream, Object owningObject, Int32 creationTimeout, Boolean canReuse)
+   bei System.Net.FtpWebRequest.FinishRequestStage(RequestStage stage)
+   bei System.Net.FtpWebRequest.GetResponse()
+   bei TutoriumApp.Delete.DeleteFunctions.DeleteFile(String fileName) in C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\Delete\DeleteFunctions.cs:Zeile 26.
