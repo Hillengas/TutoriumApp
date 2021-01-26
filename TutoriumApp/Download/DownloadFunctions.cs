@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using TutoriumApp.Parameter;
+using TutoriumApp.Charts;
 
 namespace TutoriumApp.Download
 {
-    class DownloadFunctions
+    public class DownloadFunctions
     {
+
         public static void DownloadQuestion()
         {
             const string filename = "answers.txt";
@@ -22,39 +25,63 @@ namespace TutoriumApp.Download
             // This example assumes the FTP site uses anonymous logon.
             request.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
 
-            FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-
-            Stream responseStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(responseStream);
-
-            //var fileContents = Encoding.UTF8.GetBytes(reader.ReadToEnd());
-            string[] onlineAbstimmungen = reader.ReadToEnd().Split(',');
-
-            foreach (var abstimmung in onlineAbstimmungen)
+            try
             {
-                if (!string.IsNullOrWhiteSpace(abstimmung))
-                {
-                    MessageBox.Show(abstimmung);
-                    var original = chart1.Series.Add("Original");
-                    var modified = chart1.Series.Add("Modified");
-                    chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-                    chart1.ChartAreas[0].AxisY.MinorGrid.Enabled = false;
-                    chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-                    chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = false;
+                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
 
-                    original.Points.AddXY("CPU", 7.6);
-                    modified.Points.AddXY("CPU", 1.6);
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream);
+
+                //var fileContents = Encoding.UTF8.GetBytes(reader.ReadToEnd());
+                string[] onlineAbstimmungen = reader.ReadToEnd().Split(',');
+
+                // initialize pollList
+                List<int> pollResultList = new List<int>();
+
+                int pollA = 0;
+                int pollB = 0;
+                int pollC = 0;
+                int pollD = 0;
+                int pollE = 0;
+
+                pollResultList.Add(pollA);
+                pollResultList.Add(pollB);
+                pollResultList.Add(pollC);
+                pollResultList.Add(pollD);
+                pollResultList.Add(pollE);
+
+
+                foreach (var abstimmung in onlineAbstimmungen)
+                {
+                    if (!string.IsNullOrWhiteSpace(abstimmung))
+                    {
+                        pollResultList[Int32.Parse(abstimmung) - 1] += 1;
+                    }
                 }
-                
+
+                // Abstimmungsergebnisse anzeigen
+                AbstimmungChart abstimmungChart = new AbstimmungChart();
+                abstimmungChart.A = pollResultList[0];
+                abstimmungChart.B = pollResultList[1];
+                abstimmungChart.C = pollResultList[2];
+                abstimmungChart.D = pollResultList[3];
+                abstimmungChart.E = pollResultList[4];
+
+                abstimmungChart.FillValuesToChart();
+
+                abstimmungChart.Show();
+
+                reader.Close();
+                response.Close();
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("DownloadFunctions.cs - 250120212000 - Keine Antworten bislang abgegeben" + Environment.NewLine + Environment.NewLine + e);
             }
 
+            
 
-            //MessageBox.Show(reader.ReadToEnd());
-
-            //MessageBox.Show($"Download Complete, status {response.StatusDescription}");
-
-            reader.Close();
-            response.Close();
         }
 
 

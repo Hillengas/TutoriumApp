@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,8 +50,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Charts\AbstimmungChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Charts\AbstimmungChart.Designer.cs">
+      <DependentUpon>AbstimmungChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Delete\DeleteFunctions.cs" />
     <Compile Include="Download\DownloadFunctions.cs" />
+    <Compile Include="Parameter\PollResultList.cs" />
     <Compile Include="Show\ShowFunctions.cs" />
     <Compile Include="TutorialQuestions.cs">
       <SubType>Form</SubType>
@@ -62,6 +70,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Upload\Question.cs" />
     <Compile Include="Upload\UploadFunctions.cs" />
+    <EmbeddedResource Include="Charts\AbstimmungChart.resx">
+      <DependentUpon>AbstimmungChart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TutorialQuestions.resx">
       <DependentUpon>TutorialQuestions.cs</DependentUpon>
     </EmbeddedResource>
@@ -73,6 +84,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -89,5 +101,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Choose_picture2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

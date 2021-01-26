@@ -21,3 +21,4 @@ C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Debug\TutoriumApp.pdb
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Debug\TutoriumApp.csproj.CopyComplete
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Debug\TutoriumApp.Charts.AbstimmungChart.resources

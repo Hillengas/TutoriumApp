@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -12,22 +13,23 @@ namespace TutoriumApp.Upload
 {
     class UploadFunctions
     {
-        public static void UploadQuestion(Question question)
+        public static void UploadQuestion(Question question, Bitmap bitmap)
         {
             // Get the object used to communicate with the server.
             const string filename = "answers.txt";
 
             // delete answers file
             DeleteFunctions.DeleteFile(filename);
-            UploadPicture();
+            UploadPicture(bitmap);
             UploadText(question);
-            HtmlUpload();
+            //HtmlUpload();
 
 
             // 4BWhRhAEJyKTcNbv <- PAsswort tutorium_23
             // kcN9lsyxqcKHRMeJ <- Tutorium Passwort
         }
 
+        
         /// <summary>
         /// Upload the HTML information for
         /// "http://www.tutorium.bplaced.net/index.php"
@@ -53,6 +55,7 @@ namespace TutoriumApp.Upload
                 requestStream.Write(fileContentsHtml, 0, fileContentsHtml.Length);
             }
         }
+        
 
         /// <summary>
         /// Upload the text information for
@@ -86,7 +89,7 @@ namespace TutoriumApp.Upload
         /// Upload the picture information for
         /// "http://www.tutorium.bplaced.net/index.jpg"
         /// </summary>
-        private static void UploadPicture()
+        private static void UploadPicture(Bitmap bitmap)
         {
             var requestPicture = (FtpWebRequest) WebRequest.Create("ftp://www.tutorium.bplaced.net/index.jpg");
 
@@ -98,7 +101,9 @@ namespace TutoriumApp.Upload
 
             requestPicture.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
 
-            byte[] fileContentsPicture = File.ReadAllBytes("C:/Users/Alex/Desktop/wallpaper/macOS light.jpeg");
+            //byte[] fileContentsPicture = File.ReadAllBytes(imagePath);
+
+            byte[] fileContentsPicture = ImageToByte(bitmap);
 
             requestPicture.ContentLength = fileContentsPicture.Length;
 
@@ -106,6 +111,12 @@ namespace TutoriumApp.Upload
             {
                 requestStream.Write(fileContentsPicture, 0, fileContentsPicture.Length);
             }
+        }
+
+        public static byte[] ImageToByte(Image img)
+        {
+            ImageConverter converter = new ImageConverter();
+            return (byte[])converter.ConvertTo(img, typeof(byte[]));
         }
     }
 }

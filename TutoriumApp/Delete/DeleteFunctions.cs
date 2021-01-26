@@ -25,7 +25,8 @@ namespace TutoriumApp.Delete
             {
                 using (FtpWebResponse response = (FtpWebResponse) request.GetResponse())
                 {
-                    MessageBox.Show(response.StatusDescription);
+                    // zeige Textfeld "erfolgreich gelöscht"
+
                 }
             }
             catch (Exception exception)

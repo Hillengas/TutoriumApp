@@ -1,0 +1,14 @@
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Release\TutoriumApp.exe.config
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Release\TutoriumApp.exe
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Release\TutoriumApp.pdb
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Release\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Release\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Release\TutoriumApp.csprojAssemblyReference.cache
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Release\TutoriumApp.Charts.AbstimmungChart.resources
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Release\TutoriumApp.main_form.resources
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Release\TutoriumApp.Properties.Resources.resources
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Release\TutoriumApp.csproj.GenerateResource.cache
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Release\TutoriumApp.csproj.CoreCompileInputs.cache
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Release\TutoriumApp.csproj.CopyComplete
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Release\TutoriumApp.exe
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Release\TutoriumApp.pdb
