@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TutoriumApp.Delete;
@@ -24,17 +25,22 @@ namespace TutoriumApp
         public main_form()
         {
             InitializeComponent();
+            //Question_Uploaded_RTextBox.Visible = isChecked;
             //Bitmap bitmap = new Bitmap();
+
         }
 
         private void button_upload_Click(object sender, EventArgs e)
         {
+
             Question question = new Question
             {
                 Text = newQuestion_richTextBox.Text
             };
 
+            Question_Upload_Success_Label.Visible = false;
             UploadFunctions.UploadQuestion(question, _bitmap);
+            Question_Upload_Success_Label.Visible = true;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -114,6 +120,9 @@ namespace TutoriumApp
         {
             DeleteFunctions.DeleteFile("index.txt");
             DeleteFunctions.DeleteFile("index.jpg");
+
+            // for debugging purposes
+            //DeleteFunctions.DeleteFile("index.php");
         }
     }
 }

@@ -36,7 +36,7 @@ namespace TutoriumApp.Download
                 string[] onlineAbstimmungen = reader.ReadToEnd().Split(',');
 
                 // initialize pollList
-                List<int> pollResultList = new List<int>();
+                PollResultList pollResultList = new PollResultList();
 
                 int pollA = 0;
                 int pollB = 0;
@@ -44,28 +44,51 @@ namespace TutoriumApp.Download
                 int pollD = 0;
                 int pollE = 0;
 
-                pollResultList.Add(pollA);
-                pollResultList.Add(pollB);
-                pollResultList.Add(pollC);
-                pollResultList.Add(pollD);
-                pollResultList.Add(pollE);
+                int pollA_percent = 0;
+                int pollB_percent = 0;
+                int pollC_percent = 0;
+                int pollD_percent = 0;
+                int pollE_percent = 0;
+
+                pollResultList.abstimmung.Add(pollA);
+                pollResultList.abstimmung.Add(pollB);
+                pollResultList.abstimmung.Add(pollC);
+                pollResultList.abstimmung.Add(pollD);
+                pollResultList.abstimmung.Add(pollE);
+
+                pollResultList.abstimmungProzent.Add(pollA_percent);
+                pollResultList.abstimmungProzent.Add(pollB_percent);
+                pollResultList.abstimmungProzent.Add(pollC_percent);
+                pollResultList.abstimmungProzent.Add(pollD_percent);
+                pollResultList.abstimmungProzent.Add(pollE_percent);
+
+                double total_answers_given = 0;
 
 
                 foreach (var abstimmung in onlineAbstimmungen)
                 {
                     if (!string.IsNullOrWhiteSpace(abstimmung))
                     {
-                        pollResultList[Int32.Parse(abstimmung) - 1] += 1;
+                        total_answers_given += 1;
+                        pollResultList.abstimmung[Int32.Parse(abstimmung) - 1] += 1;
                     }
                 }
 
                 // Abstimmungsergebnisse anzeigen
                 AbstimmungChart abstimmungChart = new AbstimmungChart();
-                abstimmungChart.A = pollResultList[0];
-                abstimmungChart.B = pollResultList[1];
-                abstimmungChart.C = pollResultList[2];
-                abstimmungChart.D = pollResultList[3];
-                abstimmungChart.E = pollResultList[4];
+                abstimmungChart.A = pollResultList.abstimmung[0];
+                abstimmungChart.B = pollResultList.abstimmung[1];
+                abstimmungChart.C = pollResultList.abstimmung[2];
+                abstimmungChart.D = pollResultList.abstimmung[3];
+                abstimmungChart.E = pollResultList.abstimmung[4];
+
+                //abstimmungChart
+                abstimmungChart.A_p = ((pollResultList.abstimmung[0] / total_answers_given) * 100);
+                abstimmungChart.B_p = ((pollResultList.abstimmung[1] / total_answers_given) * 100);
+                abstimmungChart.C_p = ((pollResultList.abstimmung[2] / total_answers_given) * 100);
+                abstimmungChart.D_p = ((pollResultList.abstimmung[3] / total_answers_given) * 100);
+                abstimmungChart.E_p = ((pollResultList.abstimmung[4] / total_answers_given) * 100);
+
 
                 abstimmungChart.FillValuesToChart();
 

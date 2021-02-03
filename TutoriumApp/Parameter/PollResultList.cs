@@ -9,5 +9,6 @@ namespace TutoriumApp.Parameter
     public class PollResultList
     {
         public List<int> abstimmung = new List<int>();
+        public List<int> abstimmungProzent = new List<int>();
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TutoriumApp.Delete;
+using TutoriumApp.Upload;
 
 namespace TutoriumApp.Upload
 {
@@ -22,17 +23,18 @@ namespace TutoriumApp.Upload
             DeleteFunctions.DeleteFile(filename);
             UploadPicture(bitmap);
             UploadText(question);
-            //HtmlUpload();
+            HtmlUpload();
+
 
 
             // 4BWhRhAEJyKTcNbv <- PAsswort tutorium_23
             // kcN9lsyxqcKHRMeJ <- Tutorium Passwort
         }
 
-        
+
         /// <summary>
         /// Upload the HTML information for
-        /// "http://www.tutorium.bplaced.net/index.php"
+        /// "http://tutorium.bplaced.net/index.php"
         /// </summary>
         private static void HtmlUpload()
         {
@@ -46,7 +48,7 @@ namespace TutoriumApp.Upload
 
             requestHTML.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
 
-            byte[] fileContentsHtml = File.ReadAllBytes("C:/Users/Alex/Desktop/wallpaper/PHP_Request.php");
+            byte[] fileContentsHtml = File.ReadAllBytes("C:/Users/Alex/Desktop/TutoriumApp/Zusatz/PHP_Request.php");
 
             requestHTML.ContentLength = fileContentsHtml.Length;
 
@@ -55,11 +57,11 @@ namespace TutoriumApp.Upload
                 requestStream.Write(fileContentsHtml, 0, fileContentsHtml.Length);
             }
         }
-        
+
 
         /// <summary>
         /// Upload the text information for
-        /// "http://www.tutorium.bplaced.net/index.txt"
+        /// "http://tutorium.bplaced.net/index.txt"
         /// </summary>
         /// <param name="question"></param>
         private static void UploadText(Question question)
@@ -87,7 +89,7 @@ namespace TutoriumApp.Upload
 
         /// <summary>
         /// Upload the picture information for
-        /// "http://www.tutorium.bplaced.net/index.jpg"
+        /// "http://tutorium.bplaced.net/index.jpg"
         /// </summary>
         private static void UploadPicture(Bitmap bitmap)
         {
