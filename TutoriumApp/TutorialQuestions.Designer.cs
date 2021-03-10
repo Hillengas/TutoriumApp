@@ -50,6 +50,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelLeft = new System.Windows.Forms.Panel();
             this.Question_Label = new System.Windows.Forms.Label();
+            this.delete_Question_List_in_UI = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -94,12 +95,12 @@
             // 
             this.cancelButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cancelButton.Location = new System.Drawing.Point(368, 335);
+            this.cancelButton.Location = new System.Drawing.Point(1094, 452);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(154, 44);
+            this.cancelButton.Size = new System.Drawing.Size(95, 28);
             this.cancelButton.TabIndex = 3;
-            this.cancelButton.Text = "Abbruch";
+            this.cancelButton.Text = "Beenden";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
@@ -221,7 +222,7 @@
             this.listBox_Questions.ItemHeight = 21;
             this.listBox_Questions.Location = new System.Drawing.Point(17, 4);
             this.listBox_Questions.Name = "listBox_Questions";
-            this.listBox_Questions.Size = new System.Drawing.Size(859, 168);
+            this.listBox_Questions.Size = new System.Drawing.Size(911, 231);
             this.listBox_Questions.TabIndex = 13;
             this.listBox_Questions.SelectedIndexChanged += new System.EventHandler(this.listBox_Questions_SelectedIndexChanged);
             this.listBox_Questions.DoubleClick += new System.EventHandler(this.listBox_Questions_DoubleClick);
@@ -234,7 +235,7 @@
             this.load_Question_List_Button.ForeColor = System.Drawing.Color.White;
             this.load_Question_List_Button.Image = ((System.Drawing.Image)(resources.GetObject("load_Question_List_Button.Image")));
             this.load_Question_List_Button.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.load_Question_List_Button.Location = new System.Drawing.Point(0, 561);
+            this.load_Question_List_Button.Location = new System.Drawing.Point(3, 464);
             this.load_Question_List_Button.Name = "load_Question_List_Button";
             this.load_Question_List_Button.Size = new System.Drawing.Size(258, 85);
             this.load_Question_List_Button.TabIndex = 14;
@@ -245,6 +246,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.delete_Question_List_in_UI);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.load_Question_List_Button);
             this.panel1.Controls.Add(this.save_Question_List_Button);
@@ -269,9 +271,9 @@
             // 
             this.panel2.Controls.Add(this.listBox_Questions);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(261, 551);
+            this.panel2.Location = new System.Drawing.Point(261, 488);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(941, 176);
+            this.panel2.Size = new System.Drawing.Size(941, 239);
             this.panel2.TabIndex = 16;
             // 
             // panelLeft
@@ -285,11 +287,28 @@
             // Question_Label
             // 
             this.Question_Label.AutoSize = true;
-            this.Question_Label.Location = new System.Drawing.Point(274, 527);
+            this.Question_Label.Location = new System.Drawing.Point(274, 464);
             this.Question_Label.Name = "Question_Label";
-            this.Question_Label.Size = new System.Drawing.Size(173, 21);
+            this.Question_Label.Size = new System.Drawing.Size(375, 21);
             this.Question_Label.TabIndex = 19;
-            this.Question_Label.Text = "Liste aktueller Fragen";
+            this.Question_Label.Text = "Liste aktueller Fragen (Doppelklick zur Auswahl)";
+            // 
+            // delete_Question_List_in_UI
+            // 
+            this.delete_Question_List_in_UI.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.delete_Question_List_in_UI.FlatAppearance.BorderSize = 0;
+            this.delete_Question_List_in_UI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.delete_Question_List_in_UI.ForeColor = System.Drawing.Color.White;
+            this.delete_Question_List_in_UI.Image = ((System.Drawing.Image)(resources.GetObject("delete_Question_List_in_UI.Image")));
+            this.delete_Question_List_in_UI.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.delete_Question_List_in_UI.Location = new System.Drawing.Point(3, 555);
+            this.delete_Question_List_in_UI.Name = "delete_Question_List_in_UI";
+            this.delete_Question_List_in_UI.Size = new System.Drawing.Size(258, 85);
+            this.delete_Question_List_in_UI.TabIndex = 15;
+            this.delete_Question_List_in_UI.Text = "Liste Löschen";
+            this.delete_Question_List_in_UI.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.delete_Question_List_in_UI.UseVisualStyleBackColor = true;
+            this.delete_Question_List_in_UI.Click += new System.EventHandler(this.delete_Question_List_in_UI_Click);
             // 
             // main_form
             // 
@@ -346,6 +365,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panelLeft;
         private System.Windows.Forms.Label Question_Label;
+        private System.Windows.Forms.Button delete_Question_List_in_UI;
     }
 }
 

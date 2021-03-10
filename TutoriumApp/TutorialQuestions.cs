@@ -256,5 +256,19 @@ namespace TutoriumApp
                 newQuestion_richTextBox.Text = result.Value.Text;
             }
         }
+
+        /// <summary>
+        /// löscht lokale Liste an Fragen (nur innerhalb der UI)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void delete_Question_List_in_UI_Click(object sender, EventArgs e)
+        {
+            // panelLeft anpassen
+            panelLeft.Height = delete_Question_List_in_UI.Height;
+            panelLeft.Top = delete_Question_List_in_UI.Top;
+
+            listBox_Questions.Items.Clear();
+        }
     }
 }
