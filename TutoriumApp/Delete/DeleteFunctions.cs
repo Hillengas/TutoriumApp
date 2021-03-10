@@ -16,7 +16,6 @@ namespace TutoriumApp.Delete
     {
         public static void DeleteFile(string fileName)
         {
-
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://www.tutorium.bplaced.net/" + fileName);
             request.Method = WebRequestMethods.Ftp.DeleteFile;
             request.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
@@ -26,7 +25,7 @@ namespace TutoriumApp.Delete
                 using (FtpWebResponse response = (FtpWebResponse) request.GetResponse())
                 {
                     // zeige Textfeld "erfolgreich gelöscht"
-                    MessageBox.Show("Online Frage erfolgreich gelöscht", "Löschen", MessageBoxButtons.OK);
+                    //MessageBox.Show("Online Frage erfolgreich gelöscht", "Löschen", MessageBoxButtons.OK);
 
                 }
             }
@@ -42,7 +41,7 @@ namespace TutoriumApp.Delete
                     }
                 }
 
-                MessageBox.Show("Löschen war nicht erfolgreich", "Löschen", MessageBoxButtons.OK);
+                //MessageBox.Show("Löschen war nicht erfolgreich", "Löschen", MessageBoxButtons.OK);
             }
             
         }

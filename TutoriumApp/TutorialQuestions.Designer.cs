@@ -51,8 +51,10 @@
             this.panelLeft = new System.Windows.Forms.Panel();
             this.Question_Label = new System.Windows.Forms.Label();
             this.delete_Question_List_in_UI = new System.Windows.Forms.Button();
+            this.linkLabel_homepage = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,6 +82,8 @@
             this.newQuestion_richTextBox.Size = new System.Drawing.Size(384, 199);
             this.newQuestion_richTextBox.TabIndex = 1;
             this.newQuestion_richTextBox.Text = "Text hier eingeben";
+            this.newQuestion_richTextBox.Enter += new System.EventHandler(this.textBox_entered);
+            this.newQuestion_richTextBox.Leave += new System.EventHandler(this.textBox_left);
             // 
             // label1
             // 
@@ -260,7 +264,8 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(70)))));
+            this.panel3.Controls.Add(this.linkLabel_homepage);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
@@ -278,7 +283,7 @@
             // 
             // panelLeft
             // 
-            this.panelLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.panelLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(70)))));
             this.panelLeft.Location = new System.Drawing.Point(261, 145);
             this.panelLeft.Name = "panelLeft";
             this.panelLeft.Size = new System.Drawing.Size(10, 100);
@@ -310,6 +315,21 @@
             this.delete_Question_List_in_UI.UseVisualStyleBackColor = true;
             this.delete_Question_List_in_UI.Click += new System.EventHandler(this.delete_Question_List_in_UI_Click);
             // 
+            // linkLabel_homepage
+            // 
+            this.linkLabel_homepage.AutoSize = true;
+            this.linkLabel_homepage.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel_homepage.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.linkLabel_homepage.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(120)))), ((int)(((byte)(138)))));
+            this.linkLabel_homepage.Location = new System.Drawing.Point(44, 47);
+            this.linkLabel_homepage.Name = "linkLabel_homepage";
+            this.linkLabel_homepage.Size = new System.Drawing.Size(157, 38);
+            this.linkLabel_homepage.TabIndex = 0;
+            this.linkLabel_homepage.TabStop = true;
+            this.linkLabel_homepage.Text = "Startseite";
+            this.linkLabel_homepage.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(120)))), ((int)(((byte)(138)))));
+            this.linkLabel_homepage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_homepage_LinkClicked);
+            // 
             // main_form
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -336,6 +356,8 @@
             this.Text = "Tutorium Fragen";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -366,6 +388,7 @@
         private System.Windows.Forms.Panel panelLeft;
         private System.Windows.Forms.Label Question_Label;
         private System.Windows.Forms.Button delete_Question_List_in_UI;
+        private System.Windows.Forms.LinkLabel linkLabel_homepage;
     }
 }
 

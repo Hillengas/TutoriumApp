@@ -301,5 +301,28 @@ namespace TutoriumApp
 
             listBox_Questions.Items.Clear();
         }
+
+        // open homepage at: http://tutorium.bplaced.net/index.php
+        private void linkLabel_homepage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Navigate to a URL.
+            System.Diagnostics.Process.Start("http://tutorium.bplaced.net/index.php");
+        }
+
+        private void textBox_entered(object sender, EventArgs e)
+        {
+            if (newQuestion_richTextBox.Text.Equals("Text hier eingeben"))
+            {
+                newQuestion_richTextBox.Text = String.Empty;
+            }
+        }
+
+        private void textBox_left(object sender, EventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(newQuestion_richTextBox.Text))
+            {
+                newQuestion_richTextBox.Text = "Text hier eingeben";
+            }
+        }
     }
 }
