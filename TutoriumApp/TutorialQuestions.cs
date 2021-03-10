@@ -51,7 +51,38 @@ namespace TutoriumApp
 
             Question_Upload_Success_Label.Visible = false;
             UploadFunctions.UploadQuestion(question);
-            Question_Upload_Success_Label.Visible = true;
+
+            // show success label
+            var successLabelThread = new Thread(show_Success_Label);
+            successLabelThread.Start();
+        }
+
+        /// <summary>
+        /// Das Label mit der Information, dass die Frage erfolgreich hochgeladen wurde wird für 3 Sekunden angezeigt.
+        /// Gutes Beispiel für Delegates
+        /// </summary>
+        public void show_Success_Label()
+        {
+            if (this.Question_Upload_Success_Label.InvokeRequired)
+            {
+                this.Question_Upload_Success_Label.BeginInvoke((MethodInvoker) delegate()
+                {
+                    this.Question_Upload_Success_Label.Visible = true;
+                });
+
+                Thread.Sleep(3000);
+
+                this.Question_Upload_Success_Label.BeginInvoke((MethodInvoker)delegate ()
+                {
+                    this.Question_Upload_Success_Label.Visible = false;
+                });
+            }
+            else
+            {
+                Question_Upload_Success_Label.Visible = true;
+                Thread.Sleep(3000);
+                Question_Upload_Success_Label.Visible = false;
+            }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
