@@ -14,18 +14,18 @@ namespace TutoriumApp.Upload
 {
     class UploadFunctions
     {
-        public static void UploadQuestion(Question question, Bitmap bitmap)
+        public static void UploadQuestion(Question question)
         {
             // Get the object used to communicate with the server.
-            const string filename = "answers.txt";
+            const string answersTxt = "answers.txt";
 
             // delete answers file
-            DeleteFunctions.DeleteFile(filename);
-            UploadPicture(bitmap);
-            UploadText(question);
+            DeleteFunctions.DeleteFile(answersTxt);
+
+            // upload 
+            UploadPicture(question.PictureBitmap);
+            UploadText(question.Text);
             HtmlUpload();
-
-
 
             // 4BWhRhAEJyKTcNbv <- PAsswort tutorium_23
             // kcN9lsyxqcKHRMeJ <- Tutorium Passwort
@@ -63,8 +63,8 @@ namespace TutoriumApp.Upload
         /// Upload the text information for
         /// "http://tutorium.bplaced.net/index.txt"
         /// </summary>
-        /// <param name="question"></param>
-        private static void UploadText(Question question)
+        /// <param name="text"></param>
+        private static void UploadText(string text)
         {
             var requestText = (FtpWebRequest) WebRequest.Create("ftp://www.tutorium.bplaced.net/index.txt");
 
@@ -76,7 +76,7 @@ namespace TutoriumApp.Upload
 
             requestText.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
 
-            byte[] fileContentsText = Encoding.ASCII.GetBytes(question.Text);
+            byte[] fileContentsText = Encoding.ASCII.GetBytes(text);
 
             requestText.ContentLength = fileContentsText.Length;
 

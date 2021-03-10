@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -14,17 +15,26 @@ using TutoriumApp.Delete;
 using TutoriumApp.Download;
 using TutoriumApp.Show;
 using TutoriumApp.Upload;
+using Microsoft.VisualBasic;
 
 
 namespace TutoriumApp
 {
+
     public partial class main_form : Form
     {
         private Bitmap _bitmap;
+        List<KeyValuePair<string, Question>> questionKeyValuePairsList = new List<KeyValuePair<string, Question>>();
 
         public main_form()
         {
             InitializeComponent();
+
+            // panelLeft anpassen
+            panelLeft.Height = DownloadButton.Height;
+            panelLeft.Top = DownloadButton.Top;
+
+
             //Question_Uploaded_RTextBox.Visible = isChecked;
             //Bitmap bitmap = new Bitmap();
 
@@ -35,11 +45,12 @@ namespace TutoriumApp
 
             Question question = new Question
             {
-                Text = newQuestion_richTextBox.Text
+                Text = newQuestion_richTextBox.Text,
+                PictureBitmap = _bitmap
             };
 
             Question_Upload_Success_Label.Visible = false;
-            UploadFunctions.UploadQuestion(question, _bitmap);
+            UploadFunctions.UploadQuestion(question);
             Question_Upload_Success_Label.Visible = true;
         }
 
@@ -50,6 +61,10 @@ namespace TutoriumApp
 
         private void DownloadButton_Click(object sender, EventArgs e)
         {
+            // panelLeft anpassen
+            panelLeft.Height = DownloadButton.Height;
+            panelLeft.Top = DownloadButton.Top;
+
             DownloadFunctions.DownloadQuestion();
         }
 
@@ -108,7 +123,24 @@ namespace TutoriumApp
         /// <param name="e"></param>
         private void Add_Question_To_Question_List_Button_Click(object sender, EventArgs e)
         {
+            Question question = new Question
+            {
+                Text = newQuestion_richTextBox.Text,
+                PictureBitmap = _bitmap
+            };
 
+            var questionName = Interaction.InputBox("Name der Frage eintragen.", "Eingabe des Namens", "Frage");
+
+            if (!listBox_Questions.Items.Contains(questionName))
+            {
+                listBox_Questions.Items.Add(questionName);
+                questionKeyValuePairsList.Add(new KeyValuePair<string, Question>(questionName, question));
+            }
+            else
+            {
+                MessageBox.Show("Frage mit selbem Namen bereits verfügbar. Bitte anderen Namen wählen.");
+            }
+                
         }
 
         /// <summary>
@@ -118,11 +150,111 @@ namespace TutoriumApp
         /// <param name="e"></param>
         private void Delete_Question_Online_Button_Click(object sender, EventArgs e)
         {
+            // panelLeft anpassen
+            panelLeft.Height = Delete_Question_Online_Button.Height;
+            panelLeft.Top = Delete_Question_Online_Button.Top;
+
             DeleteFunctions.DeleteFile("index.txt");
             DeleteFunctions.DeleteFile("index.jpg");
+            DeleteFunctions.DeleteFile("answers.txt");
 
             // for debugging purposes
             //DeleteFunctions.DeleteFile("index.php");
+        }
+
+        private void saveFileDialog_Questions_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void save_Question_List_Click(object sender, EventArgs e)
+        {
+            // PanelLeft anpassen 
+            panelLeft.Height = save_Question_List_Button.Height;
+            panelLeft.Top = save_Question_List_Button.Top;
+
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                var folderPath = folderBrowserDialog.SelectedPath;
+
+                for (int i = 0; i < listBox_Questions.Items.Count; i++)
+                {
+                    var questionName = listBox_Questions.Items[i].ToString();
+                    var path = Path.Combine(folderPath, questionName);
+
+                    File.WriteAllText(path + ".txt", questionKeyValuePairsList[i].Value.Text);
+                    questionKeyValuePairsList[i].Value.PictureBitmap.Save(path + ".bmp");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Questions (bestehend aus .txt und .bmp) aus Ordner laden
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void load_Question_List_Button_Click(object sender, EventArgs e)
+        {
+            // panelLeft anpassen
+            panelLeft.Height = load_Question_List_Button.Height;
+            panelLeft.Top = load_Question_List_Button.Top;
+
+            const int removeTxtExtension = 4;
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                var folderPath = folderBrowserDialog.SelectedPath;
+
+                DirectoryInfo d = new DirectoryInfo(folderPath);//Assuming Test is your Folder
+                FileInfo[] tFileInfos = d.GetFiles("*.txt"); //Getting Text files
+                FileInfo[] bitmFileInfos = d.GetFiles("*.bmp"); //Getting Bitmap files
+
+                listBox_Questions.Items.Clear();
+                questionKeyValuePairsList.Clear();
+
+                foreach (var tFileInfo in tFileInfos)
+                {
+                    using (StreamReader sr = File.OpenText(folderPath + @"\" + tFileInfo))
+                    {
+                        var text = sr.ReadToEnd();
+                        var fileName = tFileInfo.ToString();
+                        fileName = fileName.Substring(0, fileName.Length - removeTxtExtension);
+
+                        Bitmap imageBitmap = new Bitmap(folderPath + @"\" + fileName + ".bmp");
+
+                        Question question = new Question
+                        {
+                            Text = text,
+                            PictureBitmap = imageBitmap
+                        };
+
+                        listBox_Questions.Items.Add(fileName);
+                        questionKeyValuePairsList.Add(new KeyValuePair<string, Question>(fileName, question));
+                    }
+                }
+            }
+        }
+
+        private void listBox_Questions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Befüllen des Textfeldes und des Bildes im UI
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBox_Questions_DoubleClick(object sender, EventArgs e)
+        {
+            if (listBox_Questions.SelectedItem != null)
+            {
+                var result = questionKeyValuePairsList.SingleOrDefault
+                    (x => x.Key == listBox_Questions.SelectedItem.ToString());
+
+                pictureBox1.Image = result.Value.PictureBitmap;
+                _bitmap = result.Value.PictureBitmap;
+                newQuestion_richTextBox.Text = result.Value.Text;
+            }
         }
     }
 }

@@ -26,6 +26,7 @@ namespace TutoriumApp.Delete
                 using (FtpWebResponse response = (FtpWebResponse) request.GetResponse())
                 {
                     // zeige Textfeld "erfolgreich gelöscht"
+                    MessageBox.Show("Online Frage erfolgreich gelöscht", "Löschen", MessageBoxButtons.OK);
 
                 }
             }
@@ -40,6 +41,8 @@ namespace TutoriumApp.Delete
                         sw.WriteLine("DeleteFunctions.cs - 161625012021: No \"answers.txt\" was found online to be deleted. " + exception);
                     }
                 }
+
+                MessageBox.Show("Löschen war nicht erfolgreich", "Löschen", MessageBoxButtons.OK);
             }
             
         }
