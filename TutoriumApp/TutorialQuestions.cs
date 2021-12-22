@@ -16,7 +16,7 @@ using TutoriumApp.Download;
 using TutoriumApp.Show;
 using TutoriumApp.Upload;
 using Microsoft.VisualBasic;
-
+using Markdig.Helpers;
 
 namespace TutoriumApp
 {
@@ -42,12 +42,40 @@ namespace TutoriumApp
 
         private void button_upload_Click(object sender, EventArgs e)
         {
+            var title = string.Empty;
+            var text = string.Empty;
+            var titleRead = false;
+
+            using (StringReader reader = new StringReader(newQuestion_richTextBox.Text))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.StartsWith("-"))
+                    {
+                        titleRead = true;
+                    }
+
+                    if (!titleRead)
+                    {
+                        title += line;
+                    }
+                    else
+                    {
+                        text += line;
+                    }
+                }
+            }
 
             Question question = new Question
             {
-                Text = newQuestion_richTextBox.Text,
+                Text = text,
+                Title = title,
                 PictureBitmap = _bitmap
             };
+
+            DeleteFunctions.DeleteFile("answers_count.txt");
+            DeleteFunctions.DeleteFile("answers.txt");
 
             Question_Upload_Success_Label.Visible = false;
             UploadFunctions.UploadQuestion(question);
@@ -96,7 +124,10 @@ namespace TutoriumApp
             panelLeft.Height = DownloadButton.Height;
             panelLeft.Top = DownloadButton.Top;
 
-            DownloadFunctions.DownloadQuestion();
+            if (DownloadFunctions.DownloadAnswersCount())
+            {
+                DownloadFunctions.DownloadQuestion();
+            }
         }
 
         private void Choose_Picture_Button_Click(object sender, EventArgs e)
@@ -160,18 +191,17 @@ namespace TutoriumApp
                 PictureBitmap = _bitmap
             };
 
-            var questionName = Interaction.InputBox("Name der Frage eintragen.", "Eingabe des Namens", "Frage");
+            var questionName = Interaction.InputBox("Bitte den Namen der Frage eintragen.", "Eingabe des Namens", "Frage");
 
-            if (!listBox_Questions.Items.Contains(questionName))
+            if (!listBox_Questions.Items.Contains(questionName) && !string.IsNullOrEmpty(questionName))
             {
                 listBox_Questions.Items.Add(questionName);
                 questionKeyValuePairsList.Add(new KeyValuePair<string, Question>(questionName, question));
             }
-            else
+            else if (!string.IsNullOrEmpty(questionName))
             {
                 MessageBox.Show("Frage mit selbem Namen bereits verfügbar. Bitte anderen Namen wählen.");
             }
-                
         }
 
         /// <summary>
@@ -186,9 +216,12 @@ namespace TutoriumApp
             panelLeft.Top = Delete_Question_Online_Button.Top;
 
             DeleteFunctions.DeleteFile("index.txt");
-            DeleteFunctions.DeleteFile("index.jpg");
+            DeleteFunctions.DeleteFile("question_picture.jpg");
             DeleteFunctions.DeleteFile("answers.txt");
+            DeleteFunctions.DeleteFile("answers_count.txt");
 
+            MessageBox.Show("Online Frage bestehend aus Bild und Text erfolgreich entfernt", "Löschen erfolgreich",
+                MessageBoxButtons.OK);
             // for debugging purposes
             //DeleteFunctions.DeleteFile("index.php");
         }
@@ -241,7 +274,7 @@ namespace TutoriumApp
 
                 listBox_Questions.Items.Clear();
                 questionKeyValuePairsList.Clear();
-
+                
                 foreach (var tFileInfo in tFileInfos)
                 {
                     using (StreamReader sr = File.OpenText(folderPath + @"\" + tFileInfo))

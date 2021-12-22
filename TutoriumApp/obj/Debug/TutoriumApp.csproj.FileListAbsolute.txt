@@ -11,7 +11,6 @@ C:\Users\Alex\source\repos\TutoriumApp\TutoriumApp\obj\Debug\TutoriumApp.csprojA
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\TutoriumApp.exe.config
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\TutoriumApp.exe
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\TutoriumApp.pdb
-C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Debug\TutoriumApp.csprojAssemblyReference.cache
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Debug\TutoriumApp.main_form.resources
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Debug\TutoriumApp.Properties.Resources.resources
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Debug\TutoriumApp.csproj.GenerateResource.cache
@@ -22,3 +21,15 @@ C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\Microsoft.Extensions.Log
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Debug\TutoriumApp.csproj.CopyComplete
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Debug\TutoriumApp.Charts.AbstimmungChart.resources
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Debug\TutoriumApp.csproj.AssemblyReference.cache
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\obj\Debug\TutoriumApp.csproj.SuggestedBindingRedirects.cache
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\Markdig.dll
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Buffers.dll
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Memory.dll
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\Markdig.xml
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Buffers.xml
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Memory.xml
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml

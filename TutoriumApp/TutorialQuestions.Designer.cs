@@ -46,12 +46,12 @@
             this.listBox_Questions = new System.Windows.Forms.ListBox();
             this.load_Question_List_Button = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.delete_Question_List_in_UI = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.linkLabel_homepage = new System.Windows.Forms.LinkLabel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelLeft = new System.Windows.Forms.Panel();
             this.Question_Label = new System.Windows.Forms.Label();
-            this.delete_Question_List_in_UI = new System.Windows.Forms.Button();
-            this.linkLabel_homepage = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -262,6 +262,23 @@
             this.panel1.Size = new System.Drawing.Size(261, 727);
             this.panel1.TabIndex = 15;
             // 
+            // delete_Question_List_in_UI
+            // 
+            this.delete_Question_List_in_UI.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.delete_Question_List_in_UI.FlatAppearance.BorderSize = 0;
+            this.delete_Question_List_in_UI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.delete_Question_List_in_UI.ForeColor = System.Drawing.Color.White;
+            this.delete_Question_List_in_UI.Image = ((System.Drawing.Image)(resources.GetObject("delete_Question_List_in_UI.Image")));
+            this.delete_Question_List_in_UI.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.delete_Question_List_in_UI.Location = new System.Drawing.Point(3, 555);
+            this.delete_Question_List_in_UI.Name = "delete_Question_List_in_UI";
+            this.delete_Question_List_in_UI.Size = new System.Drawing.Size(258, 85);
+            this.delete_Question_List_in_UI.TabIndex = 15;
+            this.delete_Question_List_in_UI.Text = "Liste Löschen";
+            this.delete_Question_List_in_UI.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.delete_Question_List_in_UI.UseVisualStyleBackColor = true;
+            this.delete_Question_List_in_UI.Click += new System.EventHandler(this.delete_Question_List_in_UI_Click);
+            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(70)))));
@@ -271,6 +288,21 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(261, 135);
             this.panel3.TabIndex = 0;
+            // 
+            // linkLabel_homepage
+            // 
+            this.linkLabel_homepage.AutoSize = true;
+            this.linkLabel_homepage.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel_homepage.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.linkLabel_homepage.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(120)))), ((int)(((byte)(138)))));
+            this.linkLabel_homepage.Location = new System.Drawing.Point(44, 47);
+            this.linkLabel_homepage.Name = "linkLabel_homepage";
+            this.linkLabel_homepage.Size = new System.Drawing.Size(157, 38);
+            this.linkLabel_homepage.TabIndex = 0;
+            this.linkLabel_homepage.TabStop = true;
+            this.linkLabel_homepage.Text = "Startseite";
+            this.linkLabel_homepage.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(120)))), ((int)(((byte)(138)))));
+            this.linkLabel_homepage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_homepage_LinkClicked);
             // 
             // panel2
             // 
@@ -297,38 +329,6 @@
             this.Question_Label.Size = new System.Drawing.Size(375, 21);
             this.Question_Label.TabIndex = 19;
             this.Question_Label.Text = "Liste aktueller Fragen (Doppelklick zur Auswahl)";
-            // 
-            // delete_Question_List_in_UI
-            // 
-            this.delete_Question_List_in_UI.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.delete_Question_List_in_UI.FlatAppearance.BorderSize = 0;
-            this.delete_Question_List_in_UI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.delete_Question_List_in_UI.ForeColor = System.Drawing.Color.White;
-            this.delete_Question_List_in_UI.Image = ((System.Drawing.Image)(resources.GetObject("delete_Question_List_in_UI.Image")));
-            this.delete_Question_List_in_UI.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.delete_Question_List_in_UI.Location = new System.Drawing.Point(3, 555);
-            this.delete_Question_List_in_UI.Name = "delete_Question_List_in_UI";
-            this.delete_Question_List_in_UI.Size = new System.Drawing.Size(258, 85);
-            this.delete_Question_List_in_UI.TabIndex = 15;
-            this.delete_Question_List_in_UI.Text = "Liste Löschen";
-            this.delete_Question_List_in_UI.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.delete_Question_List_in_UI.UseVisualStyleBackColor = true;
-            this.delete_Question_List_in_UI.Click += new System.EventHandler(this.delete_Question_List_in_UI_Click);
-            // 
-            // linkLabel_homepage
-            // 
-            this.linkLabel_homepage.AutoSize = true;
-            this.linkLabel_homepage.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel_homepage.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.linkLabel_homepage.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(120)))), ((int)(((byte)(138)))));
-            this.linkLabel_homepage.Location = new System.Drawing.Point(44, 47);
-            this.linkLabel_homepage.Name = "linkLabel_homepage";
-            this.linkLabel_homepage.Size = new System.Drawing.Size(157, 38);
-            this.linkLabel_homepage.TabIndex = 0;
-            this.linkLabel_homepage.TabStop = true;
-            this.linkLabel_homepage.Text = "Startseite";
-            this.linkLabel_homepage.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(120)))), ((int)(((byte)(138)))));
-            this.linkLabel_homepage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_homepage_LinkClicked);
             // 
             // main_form
             // 

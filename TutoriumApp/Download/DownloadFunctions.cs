@@ -8,11 +8,43 @@ using System.Net;
 using System.Windows.Forms;
 using TutoriumApp.Parameter;
 using TutoriumApp.Charts;
+using System.Reflection;
 
 namespace TutoriumApp.Download
 {
     public class DownloadFunctions
     {
+        private static int _answersCount = 0;
+
+        public static bool DownloadAnswersCount()
+        {
+            const string filename = "answers_count.txt";
+
+            // Get the object used to communicate with the server.
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://www.tutorium.bplaced.net/" + filename);
+            request.Method = WebRequestMethods.Ftp.DownloadFile;
+
+            // This example assumes the FTP site uses anonymous logon.
+            request.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
+
+            try
+            {
+                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream);
+
+                //var fileContents = Encoding.UTF8.GetBytes(reader.ReadToEnd());
+                _answersCount = Int32.Parse(reader.ReadToEnd());
+
+                return true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Fehler beim Auslesen der Anzahl der Antwortmöglichkeiten!", "Fehler 221220211022", MessageBoxButtons.OK);
+                return false;
+            }
+        }
 
         public static void DownloadQuestion()
         {
@@ -33,39 +65,22 @@ namespace TutoriumApp.Download
                 StreamReader reader = new StreamReader(responseStream);
 
                 //var fileContents = Encoding.UTF8.GetBytes(reader.ReadToEnd());
-                string[] onlineAbstimmungen = reader.ReadToEnd().Split(',');
+                string[] onlineAbstimmungWithSpace = reader.ReadToEnd().Split(',');
+                var onlineAbstimmung = onlineAbstimmungWithSpace.Take(onlineAbstimmungWithSpace.Length - 1).ToArray();
 
                 // initialize pollList
                 PollResultList pollResultList = new PollResultList();
 
-                int pollA = 0;
-                int pollB = 0;
-                int pollC = 0;
-                int pollD = 0;
-                int pollE = 0;
-
-                int pollA_percent = 0;
-                int pollB_percent = 0;
-                int pollC_percent = 0;
-                int pollD_percent = 0;
-                int pollE_percent = 0;
-
-                pollResultList.abstimmung.Add(pollA);
-                pollResultList.abstimmung.Add(pollB);
-                pollResultList.abstimmung.Add(pollC);
-                pollResultList.abstimmung.Add(pollD);
-                pollResultList.abstimmung.Add(pollE);
-
-                pollResultList.abstimmungProzent.Add(pollA_percent);
-                pollResultList.abstimmungProzent.Add(pollB_percent);
-                pollResultList.abstimmungProzent.Add(pollC_percent);
-                pollResultList.abstimmungProzent.Add(pollD_percent);
-                pollResultList.abstimmungProzent.Add(pollE_percent);
+                for (int i = 0; i < _answersCount; i++)
+                {
+                    pollResultList.abstimmung.Add(0);
+                    pollResultList.abstimmungProzent.Add(0);
+                }
 
                 double total_answers_given = 0;
 
 
-                foreach (var abstimmung in onlineAbstimmungen)
+                foreach (var abstimmung in onlineAbstimmung)
                 {
                     if (!string.IsNullOrWhiteSpace(abstimmung))
                     {
@@ -74,23 +89,30 @@ namespace TutoriumApp.Download
                     }
                 }
 
+                // TODO: Anzahl Antworten ausgeben
+
                 // Abstimmungsergebnisse anzeigen
                 AbstimmungChart abstimmungChart = new AbstimmungChart();
-                abstimmungChart.A = pollResultList.abstimmung[0];
-                abstimmungChart.B = pollResultList.abstimmung[1];
-                abstimmungChart.C = pollResultList.abstimmung[2];
-                abstimmungChart.D = pollResultList.abstimmung[3];
-                abstimmungChart.E = pollResultList.abstimmung[4];
 
-                //abstimmungChart
-                abstimmungChart.A_p = ((pollResultList.abstimmung[0] / total_answers_given) * 100);
-                abstimmungChart.B_p = ((pollResultList.abstimmung[1] / total_answers_given) * 100);
-                abstimmungChart.C_p = ((pollResultList.abstimmung[2] / total_answers_given) * 100);
-                abstimmungChart.D_p = ((pollResultList.abstimmung[3] / total_answers_given) * 100);
-                abstimmungChart.E_p = ((pollResultList.abstimmung[4] / total_answers_given) * 100);
+                PropertyInfo[] properties = typeof(AbstimmungChart).GetProperties();
+                var propertiesList = properties.ToList().Take(_answersCount);
+                var propertiesListPercent = properties.ToList().Skip(6).Take(_answersCount);
 
+                var j = 0;
+                foreach (var property in propertiesList)
+                {
+                    property.SetValue(abstimmungChart, pollResultList.abstimmung[j]);
+                    j++;
+                }
 
-                abstimmungChart.FillValuesToChart();
+                var k = 0;
+                foreach(var propertyPercent in propertiesListPercent)
+                {
+                    propertyPercent.SetValue(abstimmungChart, (pollResultList.abstimmung[k] / total_answers_given) * 100);
+                    k++;
+                }
+
+                abstimmungChart.FillValuesToChart(_answersCount);
 
                 abstimmungChart.Show();
 
@@ -100,7 +122,7 @@ namespace TutoriumApp.Download
             }
             catch (Exception e)
             {
-                MessageBox.Show("DownloadFunctions.cs - 250120212000 - Keine Antworten bislang abgegeben" + Environment.NewLine + Environment.NewLine + e);
+                MessageBox.Show("Keine Antworten bislang abgegeben");
             }
 
             
