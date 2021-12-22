@@ -51,7 +51,7 @@
                 <img src="question_picture.jpg" class="card-img-top" alt="Frage Bild">
                 <div class="card-body">
                     <h5 class="card-title"><?php include('question_title.txt'); ?></h5>
-                    <form action="abstimmung.php" method="POST">
+                    <form id="questionForm" action="abstimmung.php" method="POST">
                         <?php
                             $handle = fopen("question_text.txt", "r");
                             if ($handle) 
@@ -85,7 +85,7 @@
                             } 
                         ?>
 
-                        <input type="submit" name="button" value="Absenden" class="btn btn-primary"/>
+                        <input id="submitButton" type="submit" name="button" value="Absenden" class="btn btn-primary" disabled/>
                     </form>
                 </div>
             </div>
@@ -99,6 +99,24 @@
             </div>
         </div>
     </div>
-    
+    <script>
+        var questionForm = document.getElementById("questionForm");
+        //document.getElementById("submitButton").disabled = false;
+
+        questionForm.addEventListener("click", function() 
+        {
+            //document.getElementById("submitButton").disabled = false;
+
+            if (atLeastOneRadio())
+            {
+                document.getElementById("submitButton").disabled = false;
+            }
+        })
+
+        function atLeastOneRadio() 
+        {
+            return ($("input[name='a']:checked").length > 0);
+        }
+    </script>
 </body>
 </html>

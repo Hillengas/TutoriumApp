@@ -108,7 +108,7 @@ namespace TutoriumApp.Download
                 var k = 0;
                 foreach(var propertyPercent in propertiesListPercent)
                 {
-                    propertyPercent.SetValue(abstimmungChart, (pollResultList.abstimmung[k] / total_answers_given) * 100);
+                    propertyPercent.SetValue(abstimmungChart, Math.Round((pollResultList.abstimmung[k] / total_answers_given) * 100, 2));
                     k++;
                 }
 
