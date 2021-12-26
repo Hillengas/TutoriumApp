@@ -11,15 +11,6 @@
          */
         public function __construct()
         {
-            // MySQL-Zugangsdaten
-            // Hier: Automatisch auslesen aus .my.cnf. Sonst einfach von Hand eintragen
-            //$user = get_current_user(); // Benutzer, dem diese Datei gehört!
-            //$myCnf = parse_ini_file("/home/$user/.my.cnf");
-
-            /*$host = $myCnf['host'];
-            $user = $myCnf['user'];
-            $password = $myCnf['password'];*/
-            //$database = $myCnf['database'];
             $host = "localhost";
             $user = "tutorium";
             $password = "94PvHewwWZ8Mqj5t";  // Password Datebankzugriff: 94PvHewwWZ8Mqj5t
@@ -50,7 +41,7 @@
          */
         public function getCountAllAnswers()
         {
-            $allquestions = $this->connection->query("SELECT COUNT(*) FROM questions GROUP BY answer;");
+            $allquestions = $this->connection->query("SELECT COUNT(*) AS anzahl FROM questions GROUP BY answer;");
 
             $questions = [];
 

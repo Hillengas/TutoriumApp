@@ -108,7 +108,7 @@
         foreach ($questions as $question)
         {
             echo "test";
-            echo $question["answer"];
+            echo $question["anzahl"];
         }
 
         // Tabelle erstellen, sofern noch nicht existent
