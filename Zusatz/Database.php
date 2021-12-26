@@ -27,10 +27,26 @@
             $this->connection->close();
         }
 
-        public function createQuestionTable()
+        public function createAnswersTable()
         {
-            //$this->connection->query("DELETE TABLE questions;");
-            $this->connection->query("CREATE TABLE IF NOT EXISTS questions (answer INTEGER);");
+            //$this->connection->query("DELETE TABLE Questions;");
+            //$this->connection->query("DELETE TABLE Answers;");
+            $this->connection->query("CREATE TABLE IF NOT EXISTS Answers (answerID INTEGER);");
+        }
+
+        public function createQuestionsTable()
+        {
+            $this->connection->query("CREATE TABLE IF NOT EXISTS Questions (id INTEGER, question TEXT);");
+        }
+
+        public function deleteAllElementsFromQuestionsTable()
+        {
+            $this->connection->query("DELETE FROM Questions;");
+        }
+
+        public function deleteAllElementsFromAnswersTable()
+        {
+            $this->connection->query("DELETE FROM Answers;");
         }
 
         
@@ -39,9 +55,9 @@
          *
          * @return array
          */
-        public function getCountAllAnswers()
+        public function getCountEachAnswer()
         {
-            $allquestions = $this->connection->query("SELECT COUNT(*) AS anzahl FROM questions GROUP BY answer;");
+            $allquestions = $this->connection->query("SELECT answerID, COUNT(*) AS anzahl FROM Answers GROUP BY answerID;");
 
             $questions = [];
 
@@ -55,9 +71,12 @@
             return $questions;
         }
 
-        public function saveAnswerInDatabase($answer)
+        /**
+         * Fügt eine gegebene ANtowrt der Tabelle answers hinzu
+         */
+        public function saveAnswerInDatabase($answerID)
         {
-            $this->connection->query("INSERT INTO questions (answer) VALUES ($answer);");
+            $this->connection->query("INSERT INTO Answers (answerID) VALUES ($answerID);");
         }
 
 
@@ -68,12 +87,16 @@
          */
         public function getQuestionByID($id)
         {
-            $question = $this->connection->query("SELECT * FROM questions AS q WHERE q.id = $id");
+            $question_sql = $this->connection->query("SELECT name FROM Questions WHERE id = $id");
 
-            $question_dictionary = $question->fetch_assoc();
+            $myQuestion = [];
 
+            while ($question = $question_sql->fetch_assoc()) 
+            {
+                array_push($myQuestion, $question);
+            }
 
-            return $question_dictionary;
+            return $myQuestion[0]["name"];
         }
     }
 ?>

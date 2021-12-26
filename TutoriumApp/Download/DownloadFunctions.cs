@@ -18,7 +18,7 @@ namespace TutoriumApp.Download
 
         public static bool DownloadAnswersCount()
         {
-            const string filename = "answers_count.txt";
+            const string filename = "questions_count.txt";
 
             // Get the object used to communicate with the server.
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://www.tutorium.bplaced.net/" + filename);

@@ -33,3 +33,9 @@ C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Buffers.xml
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Memory.xml
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\MySqlConnector.dll
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\MySqlConnector.xml
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Alex\Desktop\TutoriumApp\TutoriumApp\bin\Debug\System.Threading.Tasks.Extensions.xml
