@@ -51,7 +51,7 @@
                 <img src="question_picture.jpg" class="card-img-top" alt="Frage Bild">
                 <div class="card-body">
                     <h5 class="card-title"><?php include('question_title.txt'); ?></h5>
-                    <form id="questionForm" action="abstimmung.php" method="POST">
+                    <form id="questionForm" action="" method="POST">
                         <?php
                             $handle = fopen("question_text.txt", "r");
                             if ($handle) 
@@ -99,18 +99,64 @@
             </div>
         </div>
     </div>
+
+    <?php
+        require_once(__DIR__ . "/Database.php");
+        $db = new Database();
+        
+        $questions = $db->getCountAllAnswers();
+        foreach ($questions as $question)
+        {
+            echo "test";
+            echo $question["answer"];
+        }
+
+        // Tabelle erstellen, sofern noch nicht existent
+        //$questions = $db->createQuestionTable();
+
+        echo "<p>Tabelle erstellt</p>";
+    ?>
+
     <script>
         var questionForm = document.getElementById("questionForm");
-        //document.getElementById("submitButton").disabled = false;
+        var submitButton = document.getElementById("submitButton");
+        
+        // TODO: add bar chart online 
+        // TODO: check if button was clicked, than gray out
+        // TODO: check if new page is loaded (e.g. every 10 seconds), so if new data is available (eventuell via ID)
 
         questionForm.addEventListener("click", function() 
         {
-            //document.getElementById("submitButton").disabled = false;
-
             if (atLeastOneRadio())
             {
                 document.getElementById("submitButton").disabled = false;
             }
+        })
+
+        submitButton.addEventListener("click", function()
+        {
+            <?php
+                require_once(__DIR__ . "/Database.php");
+                $db = new Database();
+
+                if ($_POST['button'])
+                {
+                    if (!empty($_POST['a'])) 
+                    {
+                        
+                        $answer = $_POST['a'];
+                        echo $answer;
+                        $db->saveAnswerInDatabase($answer);
+
+                        echo "<p>Stimme abgegeben</p>";
+                    }
+                    else 
+                    {
+                        echo 'Fehler bei der Abstimmung!';
+                    }
+                }
+            ?>
+            document.getElementById("submitButton").disabled = true;
         })
 
         function atLeastOneRadio() 

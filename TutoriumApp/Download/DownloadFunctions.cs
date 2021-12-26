@@ -77,14 +77,14 @@ namespace TutoriumApp.Download
                     pollResultList.abstimmungProzent.Add(0);
                 }
 
-                double total_answers_given = 0;
+                double totalAnswersGiven = 0;
 
 
                 foreach (var abstimmung in onlineAbstimmung)
                 {
                     if (!string.IsNullOrWhiteSpace(abstimmung))
                     {
-                        total_answers_given += 1;
+                        totalAnswersGiven += 1;
                         pollResultList.abstimmung[Int32.Parse(abstimmung) - 1] += 1;
                     }
                 }
@@ -108,7 +108,7 @@ namespace TutoriumApp.Download
                 var k = 0;
                 foreach(var propertyPercent in propertiesListPercent)
                 {
-                    propertyPercent.SetValue(abstimmungChart, Math.Round((pollResultList.abstimmung[k] / total_answers_given) * 100, 2));
+                    propertyPercent.SetValue(abstimmungChart, Math.Round((pollResultList.abstimmung[k] / totalAnswersGiven) * 100, 2));
                     k++;
                 }
 
@@ -124,11 +124,6 @@ namespace TutoriumApp.Download
             {
                 MessageBox.Show("Keine Antworten bislang abgegeben");
             }
-
-            
-
         }
-
-
     }
 }
