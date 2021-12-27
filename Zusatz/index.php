@@ -23,6 +23,11 @@
         {
             color: rgb(255, 255, 255);
         }
+
+        input[type="radio"] 
+        {
+            margin-right:10px;
+        }
     </style>
 </head>
 <body>
@@ -91,27 +96,67 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
             <div class="card bg-dark text-white" style="margin-bottom: 0.5em;">
                 <div class="card-body">
                     <h5 class="card-title">Abstimmungsergebnis</h5>
-                    
+                    <div id="chart_div"></div>
+                    <div id="anzahl_stimmen_div"></div>
                 </div>
             </div>
         </div>
     </div>
-    <p id="demo">Hier sollte der adasdasdasdasasad stehen DEMO</p>
-    <div id="chart_div"></div>
+
+    <?php
+        require_once(__DIR__ . '/Database.php');
+        $db = new Database();
+        $antworten = array();
+
+        $myCounter = 0;
+        
+        //$nArray = $db->getNumberOfQuestionOptions();
+        //$n = $nArray[0];
+
+        $postSet = 0;
+
+        if ($_POST['button'])
+        {
+            $postSet = 1;
+        }
+
+        $countEachAnswer = $db->getCountEachAnswer();
+        foreach ($countEachAnswer as $answer)
+        {
+            $anzahl = $answer["anzahl"];
+            $id = $answer["answerID"];
+            $question = $db->getQuestionByID($id);
+
+            $myCounter += $anzahl;
+
+            $antworten[$question] = $anzahl;
+        }
+        
+        $antworten_json = json_encode($antworten);
+    ?>;
+    
 
     <script>
         var questionForm = document.getElementById("questionForm");
         var submitButton = document.getElementById("submitButton");
         
-        // TODO: check if new page is loaded (e.g. every 10 seconds), so if new data is available (eventuell via ID)
+        // TODO: check if new page is loaded (e.g. every 4 seconds), so if new data is available (eventuell via ID)
+
+        // erst den Wert ziehen, dann 10 Sekunden warten, überprüfe den Wert, dann neuen Wert alle 10 Sekunden ziehen, aber jeweils immer 10 Sekunden warten
+
+        // wenn man auf Seite kommt wird alle 4 Sekunden (erstes Mal nach! 10 Sekunden) überprüft in DB Tabelle ob ein bool true (von Client-Software belegt)
+        // da ist. Dann wird Seite automatisch neu geladen. 
+        // von client-Software -> Tabellenwert auf true legen 
+        // Wenn website aufgerufen wird, wird der Wert auf false gelegt
 
         questionForm.addEventListener("click", function() 
         {
-            if (atLeastOneRadio())
+            postSet = <?php echo "$postSet" ; ?>;
+            if (atLeastOneRadio() && !postSet)
             {
                 document.getElementById("submitButton").disabled = false;
             }
@@ -137,7 +182,7 @@
                 }
             ?>
             
-            //document.getElementById("submitButton").disabled = true;
+            document.getElementById("submitButton").disabled = true;
         })
 
         function atLeastOneRadio() 
@@ -156,28 +201,14 @@
         function drawChart() 
         {
             var dataTable = new google.visualization.DataTable();
-            dataTable.addColumn('string', 'Topping');
-            dataTable.addColumn('number', 'Slices');
+            dataTable.addColumn('string', 'Antwort');
+            dataTable.addColumn('number', 'Anzahl');
 
-            <?php
-                require_once(__DIR__ . '/Database.php');
-                $db = new Database();
-                $antworten = array();
-                
-                $countEachAnswer = $db->getCountEachAnswer();
-                foreach ($countEachAnswer as $answer)
-                {
-                    $anzahl = $answer["anzahl"];
-                    $id = $answer["answerID"];
-                    $question = $db->getQuestionByID($id);
+            //var numberOfQuestionOptions = <?php echo"$n"?>;
+            var myCounter = <?php echo "$myCounter" ; ?>;
+            var antworten = <?php echo ($antworten_json) ; ?>;
 
-                    $antworten[$question] = $anzahl;
-                }
-
-                $antworten_json = json_encode($antworten);
-            ?>;
- 
-            var antworten = <?php echo($antworten_json)?>;
+            document.getElementById("anzahl_stimmen_div").innerHTML = "Anzahl abgegebener Stimmen: " + myCounter;
              
             for (var key in antworten) 
             {
@@ -185,9 +216,9 @@
             }
             
             // Set chart options
-            var options = {'title':'How Much Pizza I Ate Last Night',
-                        'width':500,
-                        'height':300};
+            var options = {
+                        'width':'100%',
+                        'height':'100%'};
 
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
@@ -197,7 +228,12 @@
             setInterval(function() 
             {
                 // remove all rows
-                dataTable.removeRows(0, Object.keys(antworten).length);
+                //dataTable.removeRows(0, Object.keys(antworten).length);
+                dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('string', 'Antwort');
+                dataTable.addColumn('number', 'Anzahl');
+
+                var counter = 0;
 
                 $.ajax({
                     url:"data.php",
@@ -206,30 +242,15 @@
                     dataType:"JSON",
                     success:function(data)
                     {
-                        //dataTable.addRow(['test', 123]);
                         for (var key in data) 
                         {
+                            counter += parseInt(data[key]);
                             dataTable.addRow([key, parseInt(data[key])]);
                         }
                         chart.draw(dataTable, options);
+                        document.getElementById("anzahl_stimmen_div").innerHTML = "Anzahl abgegebener Stimmen: " + counter;
                     }
                 })
-
-                
-                
-                
-
-
-
-                
-
-                /*for (var key in antworten2) 
-                {
-                    //alert(antworten2[key]);
-                    data.addRow([key, parseInt(antworten2[key])]);
-                }*/
-
-                
 
                 index++;
             }, 4000);

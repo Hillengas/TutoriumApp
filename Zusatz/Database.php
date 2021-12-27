@@ -50,6 +50,23 @@
         }
 
         
+        public function getNumberOfQuestionOptions()
+        {
+            $numberOfQuestionsMySqli = $this->connection->query("SELECT COUNT(*) AS anzahl FROM Questions");
+
+            $numberOfQuestions = [];
+
+            while ($n = $numberOfQuestionsMySqli->fetch_assoc()) 
+            {
+                array_push($numberOfQuestions, $n);
+            }
+
+            $numberOfQuestionsMySqli->free();
+
+            return $numberOfQuestions;
+        }
+
+        
         /**
          * Liefert ein assozaitves Array aller in der Tabelle questions gespeicherten Einträge
          *

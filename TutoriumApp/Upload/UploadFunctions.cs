@@ -61,6 +61,8 @@ namespace TutoriumApp.Upload
                 {
                     command.CommandText = "DELETE FROM Questions;";
                     await command.ExecuteNonQueryAsync();
+                    command.CommandText = "DELETE FROM Answers;";
+                    await command.ExecuteNonQueryAsync();
                     Console.WriteLine("Finished dropping old information");
 
                     command.CommandText = "ALTER TABLE Questions AUTO_INCREMENT = 1;";
