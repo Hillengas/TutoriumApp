@@ -21,7 +21,17 @@ if(isset($_POST["action"]))
 
         echo json_encode($antworten);
     }
+
+    if($_POST["action"] == 'getNewQuestionAvailable')
+    {
+        $newQuestionAvailable = fopen("newQuestion.txt", "r");
+        echo fgets($newQuestionAvailable);
+        //echo $newQuestionAvailable;
+        //fclose("newQuestion.txt");
+        //echo "true";
+    }
 }
+
     
 
 ?>

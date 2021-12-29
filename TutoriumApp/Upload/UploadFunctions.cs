@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Resources;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TutoriumApp.Delete;
@@ -29,6 +30,7 @@ namespace TutoriumApp.Upload
             UploadPicture(question.PictureBitmap);
             UploadTitle(question.Title);
             UploadText(question.Text);
+            UploadNewQuestionAvailable();
 
             //HtmlUploadAbstimmungDone();
             //HtmlUpload();
@@ -37,6 +39,10 @@ namespace TutoriumApp.Upload
             // kcN9lsyxqcKHRMeJ <- Tutorium Passwort
         }
 
+        /// <summary>
+        /// Uploads the Question to Database on bplaced
+        /// </summary>
+        /// <param name="questionString"></param>
         private static async void UploadQuestionToDb(string questionString)
         {
             var questions = questionString.Split('-').ToList();
@@ -88,6 +94,58 @@ namespace TutoriumApp.Upload
             }
         }
 
+        /// <summary>
+        /// Sets true inside a Text-File for auto-update of index page (after 11 seconds back to false)
+        /// </summary>
+        private static void UploadNewQuestionAvailable()
+        {
+            var requestHTML = (FtpWebRequest)WebRequest.Create("ftp://www.tutorium.bplaced.net/newQuestion.txt");
+
+            requestHTML.UseBinary = true;
+            requestHTML.UsePassive = true;
+            requestHTML.KeepAlive = true;
+
+            requestHTML.Method = WebRequestMethods.Ftp.UploadFile;
+
+            requestHTML.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
+
+            byte[] contentBytes = Encoding.UTF8.GetBytes("true");
+            requestHTML.ContentLength = contentBytes.Length;
+
+            using (Stream requestStream = requestHTML.GetRequestStream())
+            {
+                requestStream.Write(contentBytes, 0, contentBytes.Length);
+            }
+
+            // after 11 seconds set new-question text to false
+            var newQuestionFalseThread = new Thread(SetNewQuestionFalse);
+            newQuestionFalseThread.Start();
+        }
+
+        private static void SetNewQuestionFalse()
+        {
+            // wait for 11 seconds
+            Thread.Sleep(11000);
+
+            var requestHTML = (FtpWebRequest)WebRequest.Create("ftp://www.tutorium.bplaced.net/newQuestion.txt");
+
+            requestHTML.UseBinary = true;
+            requestHTML.UsePassive = true;
+            requestHTML.KeepAlive = true;
+
+            requestHTML.Method = WebRequestMethods.Ftp.UploadFile;
+
+            requestHTML.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
+
+            byte[] contentBytes = Encoding.UTF8.GetBytes("false");
+            requestHTML.ContentLength = contentBytes.Length;
+
+            using (Stream requestStream = requestHTML.GetRequestStream())
+            {
+                requestStream.Write(contentBytes, 0, contentBytes.Length);
+            }
+        }
+
 
         /// <summary>
         /// Upload the HTML information for
@@ -113,26 +171,6 @@ namespace TutoriumApp.Upload
             {
                 requestStream.Write(fileContentsHtml, 0, fileContentsHtml.Length);
             }
-
-            /*
-            requestHTML = (FtpWebRequest)WebRequest.Create("ftp://www.tutorium.bplaced.net/index.html");
-
-            requestHTML.UseBinary = true;
-            requestHTML.UsePassive = true;
-            requestHTML.KeepAlive = true;
-
-            requestHTML.Method = WebRequestMethods.Ftp.UploadFile;
-
-            requestHTML.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
-
-            fileContentsHtml = File.ReadAllBytes("C:/Users/Alex/Desktop/TutoriumApp/Zusatz/HTML_Request.html");
-
-            requestHTML.ContentLength = fileContentsHtml.Length;
-
-            using (Stream requestStream = requestHTML.GetRequestStream())
-            {
-                requestStream.Write(fileContentsHtml, 0, fileContentsHtml.Length);
-            }*/
         }
 
         /// <summary>
@@ -159,26 +197,6 @@ namespace TutoriumApp.Upload
             {
                 requestStream.Write(fileContentsHtml, 0, fileContentsHtml.Length);
             }
-
-            /*
-            requestHTML = (FtpWebRequest)WebRequest.Create("ftp://www.tutorium.bplaced.net/index.html");
-
-            requestHTML.UseBinary = true;
-            requestHTML.UsePassive = true;
-            requestHTML.KeepAlive = true;
-
-            requestHTML.Method = WebRequestMethods.Ftp.UploadFile;
-
-            requestHTML.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
-
-            fileContentsHtml = File.ReadAllBytes("C:/Users/Alex/Desktop/TutoriumApp/Zusatz/HTML_Request.html");
-
-            requestHTML.ContentLength = fileContentsHtml.Length;
-
-            using (Stream requestStream = requestHTML.GetRequestStream())
-            {
-                requestStream.Write(fileContentsHtml, 0, fileContentsHtml.Length);
-            }*/
         }
 
 
@@ -199,7 +217,7 @@ namespace TutoriumApp.Upload
 
             requestText.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
 
-            byte[] fileContentsText = Encoding.ASCII.GetBytes(title);
+            byte[] fileContentsText = Encoding.UTF8.GetBytes(title);
 
             requestText.ContentLength = fileContentsText.Length;
 
@@ -227,7 +245,7 @@ namespace TutoriumApp.Upload
 
             requestText.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
 
-            byte[] fileContentsText = Encoding.ASCII.GetBytes(text);
+            byte[] fileContentsText = Encoding.UTF8.GetBytes(text);
 
             requestText.ContentLength = fileContentsText.Length;
 

@@ -106,6 +106,7 @@
             </div>
         </div>
     </div>
+    <!--<div id="lastModified">Test Section</div>-->
 
     <?php
         require_once(__DIR__ . '/Database.php');
@@ -137,12 +138,31 @@
         }
         
         $antworten_json = json_encode($antworten);
-    ?>;
+    ?>
     
 
     <script>
         var questionForm = document.getElementById("questionForm");
         var submitButton = document.getElementById("submitButton");
+
+        setInterval(function()
+        {
+            //alert("test");
+            $.ajax({
+                traditional: true,
+                url:"data.php",
+                method:"POST",
+                data:{action:'getNewQuestionAvailable'},
+                dataType:"JSON",
+                success:function(newQuestionAvailable)
+                {
+                    if (newQuestionAvailable)
+                    {
+                        location.reload();
+                    }
+                }
+            })
+        }, 7000); //TODO: Zeitpunkt vergrößern
         
         // TODO: check if new page is loaded (e.g. every 4 seconds), so if new data is available (eventuell via ID)
 
@@ -174,10 +194,6 @@
                     {    
                         $answerID = $_POST['a'];
                         $db->saveAnswerInDatabase($answerID);
-                    }
-                    else 
-                    {
-                        //echo 'Fehler bei der Abstimmung!';
                     }
                 }
             ?>
@@ -224,7 +240,6 @@
             var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
             chart.draw(dataTable, options);
 
-            var index = 0;
             setInterval(function() 
             {
                 // remove all rows
@@ -252,7 +267,6 @@
                     }
                 })
 
-                index++;
             }, 4000);
             
         }
