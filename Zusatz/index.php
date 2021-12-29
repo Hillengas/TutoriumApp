@@ -54,7 +54,7 @@
     <div class="row justify-content-sm-center">
         <div class="col-sm-6">
             <div class="card space">
-                <img src="question_picture.jpg" class="card-img-top" alt="Frage Bild">
+                <img id="question_picture" src="question_picture.jpg" class="card-img-top" alt="Frage Bild">
                 <div class="card-body">
                     <h5 class="card-title"><?php include('question_title.txt'); ?></h5>
                     <form id="questionForm" method="POST">
@@ -142,6 +142,8 @@
     
 
     <script>
+        document.getElementById("question_picture").src = "question_picture.jpg?" + performance.now();
+
         var questionForm = document.getElementById("questionForm");
         var submitButton = document.getElementById("submitButton");
 
@@ -162,17 +164,8 @@
                     }
                 }
             })
-        }, 7000); //TODO: Zeitpunkt vergrößern
+        }, 7000); 
         
-        // TODO: check if new page is loaded (e.g. every 4 seconds), so if new data is available (eventuell via ID)
-
-        // erst den Wert ziehen, dann 10 Sekunden warten, überprüfe den Wert, dann neuen Wert alle 10 Sekunden ziehen, aber jeweils immer 10 Sekunden warten
-
-        // wenn man auf Seite kommt wird alle 4 Sekunden (erstes Mal nach! 10 Sekunden) überprüft in DB Tabelle ob ein bool true (von Client-Software belegt)
-        // da ist. Dann wird Seite automatisch neu geladen. 
-        // von client-Software -> Tabellenwert auf true legen 
-        // Wenn website aufgerufen wird, wird der Wert auf false gelegt
-
         questionForm.addEventListener("click", function() 
         {
             postSet = <?php echo "$postSet" ; ?>;
@@ -194,6 +187,10 @@
                     {    
                         $answerID = $_POST['a'];
                         $db->saveAnswerInDatabase($answerID);
+
+                        //$fileOpen = fopen("answers.txt", "a");
+                        //fwrite($fileOpen, $answerID . ",");
+                        //$fclose($fileOpen);
                     }
                 }
             ?>

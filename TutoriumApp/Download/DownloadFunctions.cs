@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using TutoriumApp.Parameter;
 using TutoriumApp.Charts;
 using System.Reflection;
+using MySqlConnector;
 
 namespace TutoriumApp.Download
 {
@@ -46,32 +47,54 @@ namespace TutoriumApp.Download
             }
         }
 
-        public static void DownloadQuestion()
+        public static async void DownloadQuestion()
         {
-            const string filename = "answers.txt";
-
-            // Get the object used to communicate with the server.
-            FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://www.tutorium.bplaced.net/" + filename);
-            request.Method = WebRequestMethods.Ftp.DownloadFile;
-
-            // This example assumes the FTP site uses anonymous logon.
-            request.Credentials = new NetworkCredential("tutorium_23", "4BWhRhAEJyKTcNbv");
-
             try
             {
-                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+                var builder = new MySqlConnectionStringBuilder
+                {
+                    Server = "www.tutorium.bplaced.net",
+                    Database = "tutorium_mysql",
+                    UserID = "tutorium",
+                    Password = "94PvHewwWZ8Mqj5t",
+                    Port = 3306,
+                };
 
-                Stream responseStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(responseStream);
+                var tupleAnswerAnzahList = new List<(int answerID, int anzahl)>();
+                var numberOfAnswers = 0;
 
-                //var fileContents = Encoding.UTF8.GetBytes(reader.ReadToEnd());
-                string[] onlineAbstimmungWithSpace = reader.ReadToEnd().Split(',');
-                var onlineAbstimmung = onlineAbstimmungWithSpace.Take(onlineAbstimmungWithSpace.Length - 1).ToArray();
+                using (var conn = new MySqlConnection(builder.ConnectionString))
+                {
+                    Console.WriteLine("Opening connection");
+                    await conn.OpenAsync();
+
+                    using (var command = conn.CreateCommand())
+                    {
+                        command.CommandText = "SELECT answerID, COUNT(*) AS anzahl FROM `Answers` AS A GROUP BY A.answerID ORDER BY answerID;";
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                tupleAnswerAnzahList.Add((reader.GetInt32(0), reader.GetInt32(1)));
+                            }
+                        }
+
+                        command.CommandText = "SELECT MAX(id) FROM Questions;";
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            await reader.ReadAsync();
+                            numberOfAnswers = reader.GetInt32(0);
+                        }
+                    }
+
+                    // connection will be closed by the 'using' block
+                    Console.WriteLine("Closing connection");
+                }
 
                 // initialize pollList
-                PollResultList pollResultList = new PollResultList();
+                var pollResultList = new PollResultList();
 
-                for (int i = 0; i < _answersCount; i++)
+                for (int i = 0; i < numberOfAnswers; i++)
                 {
                     pollResultList.abstimmung.Add(0);
                     pollResultList.abstimmungProzent.Add(0);
@@ -79,22 +102,18 @@ namespace TutoriumApp.Download
 
                 double totalAnswersGiven = 0;
 
-
-                foreach (var abstimmung in onlineAbstimmung)
+                foreach (var answerAnzahlTuple in tupleAnswerAnzahList)
                 {
-                    if (!string.IsNullOrWhiteSpace(abstimmung))
-                    {
-                        totalAnswersGiven += 1;
-                        pollResultList.abstimmung[Int32.Parse(abstimmung) - 1] += 1;
-                    }
+                    totalAnswersGiven += 1;
+                    pollResultList.abstimmung[answerAnzahlTuple.answerID - 1] = answerAnzahlTuple.anzahl;
                 }
 
                 // TODO: Anzahl Antworten ausgeben
 
-                // Abstimmungsergebnisse anzeigen
-                AbstimmungChart abstimmungChart = new AbstimmungChart();
+                // AbstimmungsChart mit Werten belegen und anzeigen
+                var abstimmungChart = new AbstimmungChart();
 
-                PropertyInfo[] properties = typeof(AbstimmungChart).GetProperties();
+                var properties = typeof(AbstimmungChart).GetProperties();
                 var propertiesList = properties.ToList().Take(_answersCount);
                 var propertiesListPercent = properties.ToList().Skip(6).Take(_answersCount);
 
@@ -106,7 +125,7 @@ namespace TutoriumApp.Download
                 }
 
                 var k = 0;
-                foreach(var propertyPercent in propertiesListPercent)
+                foreach (var propertyPercent in propertiesListPercent)
                 {
                     propertyPercent.SetValue(abstimmungChart, Math.Round((pollResultList.abstimmung[k] / totalAnswersGiven) * 100, 2));
                     k++;
@@ -115,10 +134,6 @@ namespace TutoriumApp.Download
                 abstimmungChart.FillValuesToChart(_answersCount);
 
                 abstimmungChart.Show();
-
-                reader.Close();
-                response.Close();
-
             }
             catch (Exception e)
             {
