@@ -54,7 +54,7 @@
     <div class="row justify-content-sm-center">
         <div class="col-sm-6">
             <div class="card space">
-                <img id="question_picture" src="question_picture.jpg" class="card-img-top" alt="Frage Bild">
+                <img id="question_picture" src="question_picture.jpg?123" class="card-img-top" alt="Frage Bild">
                 <div class="card-body">
                     <h5 class="card-title"><?php include('question_title.txt'); ?></h5>
                     <form id="questionForm" method="POST">
@@ -114,10 +114,6 @@
         $antworten = array();
 
         $myCounter = 0;
-        
-        //$nArray = $db->getNumberOfQuestionOptions();
-        //$n = $nArray[0];
-
         $postSet = 0;
 
         if ($_POST['button'])
@@ -149,7 +145,6 @@
 
         setInterval(function()
         {
-            //alert("test");
             $.ajax({
                 traditional: true,
                 url:"data.php",
@@ -160,7 +155,7 @@
                 {
                     if (newQuestionAvailable)
                     {
-                        location.reload();
+                        location.assign("index.php");
                     }
                 }
             })
@@ -187,10 +182,6 @@
                     {    
                         $answerID = $_POST['a'];
                         $db->saveAnswerInDatabase($answerID);
-
-                        //$fileOpen = fopen("answers.txt", "a");
-                        //fwrite($fileOpen, $answerID . ",");
-                        //$fclose($fileOpen);
                     }
                 }
             ?>
@@ -217,7 +208,6 @@
             dataTable.addColumn('string', 'Antwort');
             dataTable.addColumn('number', 'Anzahl');
 
-            //var numberOfQuestionOptions = <?php echo"$n"?>;
             var myCounter = <?php echo "$myCounter" ; ?>;
             var antworten = <?php echo ($antworten_json) ; ?>;
 
@@ -237,6 +227,8 @@
             var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
             chart.draw(dataTable, options);
 
+            var counter = 0;
+
             setInterval(function() 
             {
                 // remove all rows
@@ -244,8 +236,6 @@
                 dataTable = new google.visualization.DataTable();
                 dataTable.addColumn('string', 'Antwort');
                 dataTable.addColumn('number', 'Anzahl');
-
-                var counter = 0;
 
                 $.ajax({
                     url:"data.php",
@@ -265,7 +255,6 @@
                 })
 
             }, 4000);
-            
         }
     </script>
 </body>

@@ -26,9 +26,6 @@ if(isset($_POST["action"]))
     {
         $newQuestionAvailable = fopen("newQuestion.txt", "r");
         echo fgets($newQuestionAvailable);
-        //echo $newQuestionAvailable;
-        //fclose("newQuestion.txt");
-        //echo "true";
     }
 }
 
