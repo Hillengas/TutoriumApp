@@ -33,8 +33,29 @@ namespace TutoriumApp.Charts
         public AbstimmungChart()
         {
             InitializeComponent();
-            pollChart.Titles.Add("Abstimmung der Online Frage");
-            pollChart_Percent.Titles.Add("Abstimmung der Online Frage (in Prozent)");
+
+            var title = pollChart.Titles.Add("Abstimmung der Online Frage");
+            var titleP = pollChart_Percent.Titles.Add("Abstimmung der Online Frage (in Prozent)");
+            title.ForeColor = Color.White;
+            titleP.ForeColor = Color.White;
+
+            pollChart.ChartAreas[0].AxisX.LineColor = Color.White;
+            pollChart.ChartAreas[0].AxisY.LineColor = Color.White;
+            pollChart.ChartAreas[0].AxisX.InterlacedColor = Color.White;
+            pollChart.ChartAreas[0].AxisY.InterlacedColor = Color.White;
+            pollChart.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.White;
+            pollChart.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.White;
+            pollChart.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.White;
+            pollChart.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.White;
+
+            pollChart_Percent.ChartAreas[0].AxisX.LineColor = Color.White;
+            pollChart_Percent.ChartAreas[0].AxisY.LineColor = Color.White;
+            pollChart_Percent.ChartAreas[0].AxisX.InterlacedColor = Color.White;
+            pollChart_Percent.ChartAreas[0].AxisY.InterlacedColor = Color.White;
+            pollChart_Percent.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.White;
+            pollChart_Percent.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.White;
+            pollChart_Percent.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.White;
+            pollChart_Percent.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.White;
         }
 
         public void FillValuesToChart(int anzahl)

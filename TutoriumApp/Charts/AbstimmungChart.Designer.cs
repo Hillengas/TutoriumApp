@@ -79,7 +79,7 @@
             this.pollChart_Percent.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.pollChart_Percent.Legends.Add(legend2);
-            this.pollChart_Percent.Location = new System.Drawing.Point(12, 100);
+            this.pollChart_Percent.Location = new System.Drawing.Point(11, 13);
             this.pollChart_Percent.Margin = new System.Windows.Forms.Padding(2);
             this.pollChart_Percent.Name = "pollChart_Percent";
             this.pollChart_Percent.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
@@ -88,6 +88,7 @@
             series2.ChartArea = "ChartArea1";
             series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series2.IsValueShownAsLabel = true;
+            series2.LabelForeColor = System.Drawing.Color.White;
             series2.Legend = "Legend1";
             series2.LegendText = "Prozent";
             series2.Name = "Prozent";
