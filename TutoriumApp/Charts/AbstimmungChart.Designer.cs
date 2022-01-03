@@ -59,11 +59,12 @@
             series1.ChartArea = "ChartArea1";
             series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series1.IsValueShownAsLabel = true;
+            series1.LabelForeColor = System.Drawing.Color.White;
             series1.Legend = "Legend1";
             series1.Name = "Anzahl";
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.String;
             this.pollChart.Series.Add(series1);
-            this.pollChart.Size = new System.Drawing.Size(472, 373);
+            this.pollChart.Size = new System.Drawing.Size(471, 373);
             this.pollChart.TabIndex = 0;
             this.pollChart.Text = "pollChart";
             // 
@@ -79,7 +80,7 @@
             this.pollChart_Percent.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.pollChart_Percent.Legends.Add(legend2);
-            this.pollChart_Percent.Location = new System.Drawing.Point(11, 13);
+            this.pollChart_Percent.Location = new System.Drawing.Point(12, 12);
             this.pollChart_Percent.Margin = new System.Windows.Forms.Padding(2);
             this.pollChart_Percent.Name = "pollChart_Percent";
             this.pollChart_Percent.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
