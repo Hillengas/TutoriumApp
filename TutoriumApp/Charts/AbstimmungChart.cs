@@ -39,6 +39,8 @@ namespace TutoriumApp.Charts
             title.ForeColor = Color.White;
             titleP.ForeColor = Color.White;
 
+            var myBackgroundColor = Color.FromArgb(41, 44, 51);
+
             pollChart.ChartAreas[0].AxisX.LineColor = Color.White;
             pollChart.ChartAreas[0].AxisY.LineColor = Color.White;
             pollChart.ChartAreas[0].AxisX.InterlacedColor = Color.White;
@@ -47,7 +49,9 @@ namespace TutoriumApp.Charts
             pollChart.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.White;
             pollChart.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.White;
             pollChart.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.White;
-            pollChart.ChartAreas[0].BackColor = Color.FromArgb(41, 44, 51);
+            pollChart.Legends[0].BackColor = myBackgroundColor;
+            pollChart.Legends[0].ForeColor = Color.White;
+            pollChart.ChartAreas[0].BackColor = myBackgroundColor;
 
             pollChart_Percent.ChartAreas[0].AxisX.LineColor = Color.White;
             pollChart_Percent.ChartAreas[0].AxisY.LineColor = Color.White;
@@ -57,7 +61,9 @@ namespace TutoriumApp.Charts
             pollChart_Percent.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.White;
             pollChart_Percent.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.White;
             pollChart_Percent.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.White;
-            pollChart_Percent.ChartAreas[0].BackColor = Color.FromArgb(41, 44, 51);
+            pollChart_Percent.Legends[0].BackColor = myBackgroundColor;
+            pollChart_Percent.Legends[0].ForeColor = Color.White;
+            pollChart_Percent.ChartAreas[0].BackColor = myBackgroundColor;
         }
 
         public void FillValuesToChart(int anzahl)
