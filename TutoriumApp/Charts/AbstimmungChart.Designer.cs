@@ -44,6 +44,7 @@
             // 
             // pollChart
             // 
+            this.pollChart.BackColor = System.Drawing.Color.Transparent;
             chartArea1.AxisX.MajorGrid.Enabled = false;
             chartArea1.Name = "ChartArea1";
             this.pollChart.ChartAreas.Add(chartArea1);
@@ -52,6 +53,9 @@
             this.pollChart.Legends.Add(legend1);
             this.pollChart.Location = new System.Drawing.Point(12, 12);
             this.pollChart.Name = "pollChart";
+            this.pollChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            this.pollChart.PaletteCustomColors = new System.Drawing.Color[] {
+        System.Drawing.Color.Blue};
             series1.ChartArea = "ChartArea1";
             series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series1.IsValueShownAsLabel = true;
@@ -65,17 +69,22 @@
             // 
             // pollChart_Percent
             // 
-            this.pollChart_Percent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.pollChart_Percent.BackColor = System.Drawing.Color.Transparent;
             this.pollChart_Percent.BorderlineColor = System.Drawing.Color.Transparent;
+            this.pollChart_Percent.BorderSkin.BackColor = System.Drawing.Color.Transparent;
+            this.pollChart_Percent.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
+            this.pollChart_Percent.BorderSkin.PageColor = System.Drawing.Color.Transparent;
             chartArea2.AxisX.MajorGrid.Enabled = false;
             chartArea2.Name = "ChartArea1";
             this.pollChart_Percent.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.pollChart_Percent.Legends.Add(legend2);
-            this.pollChart_Percent.Location = new System.Drawing.Point(13, 13);
+            this.pollChart_Percent.Location = new System.Drawing.Point(12, 100);
             this.pollChart_Percent.Margin = new System.Windows.Forms.Padding(2);
             this.pollChart_Percent.Name = "pollChart_Percent";
             this.pollChart_Percent.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
+            this.pollChart_Percent.PaletteCustomColors = new System.Drawing.Color[] {
+        System.Drawing.Color.Orange};
             series2.ChartArea = "ChartArea1";
             series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series2.IsValueShownAsLabel = true;
