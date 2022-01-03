@@ -93,6 +93,7 @@ namespace TutoriumApp.Download
 
                 // initialize pollList
                 var pollResultList = new PollResultList();
+                double totalAnswersGiven = 0;
 
                 for (int i = 0; i < numberOfAnswers; i++)
                 {
@@ -100,11 +101,9 @@ namespace TutoriumApp.Download
                     pollResultList.abstimmungProzent.Add(0);
                 }
 
-                double totalAnswersGiven = 0;
-
                 foreach (var answerAnzahlTuple in tupleAnswerAnzahList)
                 {
-                    totalAnswersGiven += 1;
+                    totalAnswersGiven += answerAnzahlTuple.anzahl;
                     pollResultList.abstimmung[answerAnzahlTuple.answerID - 1] = answerAnzahlTuple.anzahl;
                 }
 

@@ -227,8 +227,6 @@
             var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
             chart.draw(dataTable, options);
 
-            var counter = 0;
-
             setInterval(function() 
             {
                 // remove all rows
@@ -236,6 +234,8 @@
                 dataTable = new google.visualization.DataTable();
                 dataTable.addColumn('string', 'Antwort');
                 dataTable.addColumn('number', 'Anzahl');
+
+                var counter = 0;
 
                 $.ajax({
                     url:"data.php",
