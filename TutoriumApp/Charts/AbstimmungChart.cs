@@ -51,39 +51,14 @@ namespace TutoriumApp.Charts
                 chartCharacter++;
             }
 
-            /*
-            // anzahl
-            pollChart.Series["Anzahl"].Points.AddXY("A", A);
-            pollChart.Series["Anzahl"].Points.AddXY("B", B);
-            pollChart.Series["Anzahl"].Points.AddXY("C", C);
-            pollChart.Series["Anzahl"].Points.AddXY("D", D);
-            pollChart.Series["Anzahl"].Points.AddXY("E", E);
-
-            //pollChart.Series["Anzahl"].IsValueShownAsLabel = true;
-
-            // prozentual
-            pollChart_Percent.Series["Prozent"].Points.AddXY("A", A_p);
-            pollChart_Percent.Series["Prozent"].Points.AddXY("B", B_p);
-            pollChart_Percent.Series["Prozent"].Points.AddXY("C", C_p);
-            pollChart_Percent.Series["Prozent"].Points.AddXY("D", D_p);
-            pollChart_Percent.Series["Prozent"].Points.AddXY("E", E_p);
-            */
-
             //pollChart_Percent.Series["Prozent"].IsValueShownAsLabel = true;
         }
 
-        /*
-            var original = chart1.Series.Add("Original");
-            var modified = chart1.Series.Add("Modified");
-            chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-            chart1.ChartAreas[0].AxisY.MinorGrid.Enabled = false;
-            chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-            chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = false;
+        private void rjToggleButtonAbstimmungTable_CheckedChanged(object sender, EventArgs e)
+        {
 
-            original.Points.AddXY("CPU", 7.6);
-            modified.Points.AddXY("CPU", 1.6);
-            */
-
-
+            pollChart_Percent.Visible = !pollChart_Percent.Visible;
+            pollChart.Visible = !pollChart.Visible;
+        }
     }
 }

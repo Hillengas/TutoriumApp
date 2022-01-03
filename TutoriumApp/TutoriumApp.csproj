@@ -85,6 +85,9 @@
     </Compile>
     <Compile Include="Delete\DeleteFunctions.cs" />
     <Compile Include="Download\DownloadFunctions.cs" />
+    <Compile Include="HelperFunctions\RJToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Parameter\PollResultList.cs" />
     <Compile Include="Show\ShowFunctions.cs" />
     <Compile Include="TutorialQuestions.cs">
