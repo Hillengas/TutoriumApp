@@ -1,0 +1,18 @@
+features: 
+
+- online force refresh  <-- 
+- client list of question add-button 
+- give each question a name when saving it
+- save list of questions into a folder by copying the text and pictures to location
+
+
+
+
+
+bugs:
+
+- 
+
+
+
+
