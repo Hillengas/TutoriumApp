@@ -30,25 +30,11 @@
         }
     </style>
 </head>
-<body>
-
+<body>    
     <nav class="navbar navbar-expand-sm navbar-light bg-dark" style="margin-bottom: 1em;">
-        <ul class="nav navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link button_color" href="#" style="color: white;">Menüpunkt 1</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link button_color" href="#" style="color: white;">Menüpunkt 2</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">Menüpunkt 3</a>
-                <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">1</a>
-                    <a href="#" class="dropdown-item">2</a>
-                    <a href="#" class="dropdown-item">3</a>
-                </div>
-            </li>
-        </ul>
+        <a class="navbar-brand">
+            <span class="button_color">Tutorium</span>
+        </a>
     </nav>
 
     <div class="row justify-content-sm-center">
